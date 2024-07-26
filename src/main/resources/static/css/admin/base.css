@@ -1,0 +1,38 @@
+
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css);
+
+:root{
+    --main-card-height:400px;
+    --nav-color: #4e8d69;
+    --slider-color: #092a3b;
+    --body-background-color: #e3c3c3;
+}
+.custom-nav{
+    background-color: var(--nav-color);
+
+}
+/*.custom-nav button{*/
+/*    background-color: white;*/
+/*    color: var(--slider-color);*/
+/*}*/
+/*.custom-nav a:hover{*/
+/*    background-color: var(--slider-color);*/
+/*    color: white;*/
+
+/*}*/
+
+/*.nav-link:hover{*/
+/*    transform: scale(1.1);*/
+/*    color: #39da3d;*/
+/*    */
+/*    transition-property: transform;*/
+/*    transition-timing-function: ease-in-out;*/
+/*    transition-duration: 0.3s;*/
+/*}*/
+/*.nav-link{*/
+/*    color: white;*/
+/*    transform: scale(1);*/
+/*    transition-property: transform;*/
+/*    transition-timing-function: ease-in-out;*/
+/*    transition-duration: 0.3s;*/
+/*}*/

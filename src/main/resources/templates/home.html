@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>College Library Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Home page background animation Style start-->
+    <link rel="stylesheet" th:href="@{/css/home/home.css}">
+    <!-- Home page background animation Style end-->
+</head>
+<body>
+
+
+<!--home page background elements start-->
+<canvas id="sakura"></canvas>
+<div class="btnbg">
+    <!--    home page background elements end-->
+
+
+    <div class="parent">
+
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <img src="" alt="">
+                    <h1>College Library</h1>
+                </div>
+                <div class="nav-items">
+
+                    <li>
+                        Contact us
+                    </li>
+                    <li>
+                        About Us
+                    </li>
+                    <li>
+                        pricing
+                    </li>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div class="home-page-content">
+            <form action="" method="get">
+                <div class="input-group  ">
+                    <div>
+                        <input type="text" class=" form-control fs-2" placeholder="Enter your college code"
+                               aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    </div>
+                    <div>
+                        <button type="submit" class=" fs-2 input-group-text" id="basic-addon2">Enter</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div id="home-page">
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Home page background animation script start-->
+
+<script id="secondJs" th:src="@{/javascript/home/home.js}"></script>
+
+<!-- Home page background animation script end-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
