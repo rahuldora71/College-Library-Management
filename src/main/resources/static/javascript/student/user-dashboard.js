@@ -1,11 +1,8 @@
-document.addEventListener("DOMContentLoaded", function () {
+const baseUrl = window.location.origin;
 
-
-
-});
-let searchBookUrl = "http://localhost:9090/librarian/home/book-suggestions";
+let searchBookUrl = baseUrl+"/librarian/home/book-suggestions";
 let searchedBookId;
-let serverUrl = "http://localhost:9090/librarian/home/";
+let serverUrl = baseUrl+"/librarian/home/";
 let userId=window.location.href.split("user-prof/")[1];
 function setSearchedBookId(id) {
     this.searchedBookId = id;

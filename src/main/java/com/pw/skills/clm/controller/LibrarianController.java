@@ -96,15 +96,6 @@ public class LibrarianController {
 
 
 
-    //    Contact handler
-    @RequestMapping("/contact")
-    public String contact(Model model) {
-        model.addAttribute("title", "Contact US");
-        return "admin/contact";
-    }
-
-
-
 
     //    Add User handler
     @RequestMapping("/edit-user/{id}")

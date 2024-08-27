@@ -39,7 +39,7 @@
         <div class="    mb-5 ">
             <form class="" method="post" th:action="@{'/librarian/edit-user-db/'+${user.studentId}}"  enctype="multipart/form-data" th:object="${user}">
                 <div class="profile-header">
-                    <img style="min-height: 15vh ; min-width: 100%; background-color: #8f8f8f"  alt="College Cover Photo" th:src="@{'/images/college'+${collegeImage}}" class="cover-photo">
+                    <img style="min-height: 15vh ; min-width: 100%; background-color: #8f8f8f"  alt="College Cover Photo" th:src="@{'/images/college/'+${collegeImage}}" class="cover-photo">
                     <img style="background-color: #092a3b; color: white;" th:src="@{'/images/student/'+${user.studentImage}}"  alt="College Logo" class="profile-pic">
                 </div>
                 <div class="card  m-2 mt-5 p-2">

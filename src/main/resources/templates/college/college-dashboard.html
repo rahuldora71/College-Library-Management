@@ -177,6 +177,7 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>
     <script>
+        const baseUrl = window.location.origin;
 
         document.addEventListener("DOMContentLoaded", function () {
             const ctx = document.getElementById('bookStatusChart').getContext('2d');
@@ -199,7 +200,7 @@
             });
 
             // Fetch book status data from the backend
-            fetch('http://localhost:9090/college/count-books')
+            fetch(baseUrl+'/college/count-books')
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)

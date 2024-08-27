@@ -1,12 +1,13 @@
 
+const baseUrl = window.location.origin;
 let listingBooksUrl = "";
 //     getter and setter of the listingBooksUrl
 
-let serverUrl="http://localhost:9090/librarian/";
-let deleteBookUrl = "http://localhost:9090/librarian/home/delete-book/";
-let bookEditUrl= "http://localhost:9090/librarian/update-book/";
+let serverUrl= baseUrl+"/librarian/";
+let deleteBookUrl =  baseUrl+"/librarian/home/delete-book/";
+let bookEditUrl=  baseUrl+"/librarian/update-book/";
 
-// let listingSearchedBooksUrl="http://localhost:9090/librarian/home/searched-books-list";
+// let listingSearchedBooksUrl=baseUrl+"/librarian/home/searched-books-list";
 let currentPage = 0;
 const pageSize = 8;
 
@@ -100,7 +101,7 @@ const search = () => {
     if (query === "") {
         $(".search-result").hide();
     } else {
-        let url = `http://localhost:9090/librarian/home/book-suggestions?search=${query}&filter=${filter}&flag=false`;
+        let url = `${baseUrl}/librarian/home/book-suggestions?search=${query}&filter=${filter}&flag=false`;
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -113,7 +114,7 @@ const search = () => {
                 $(".search-result").html(text).show();
 
                 // Add event listeners to the suggestion items
-                $(".suggestion-item").on("click", function () {
+                $(".suggestion-item").on("mousedown", function () {
                     const selectedText = $(this).data("value");
                     $("#book-search-input").val(selectedText);
                     $(".search-result").hide(); // Hide suggestions after selection
@@ -134,7 +135,7 @@ function fetchSearchedBooks() {
 
     let filter = getSelectedFilter() || "title";
 
-    listingBooksUrl = `http://localhost:9090/librarian/home/searched-books-list?search=${query}&filter=${filter}&`;
+    listingBooksUrl = `${baseUrl}/librarian/home/searched-books-list?search=${query}&filter=${filter}&`;
     fetchBooks(currentPage, pageSize);
 
     let searchResult = $(".search-result");
@@ -148,7 +149,7 @@ function fetchSearchedBooks() {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    listingBooksUrl = "http://localhost:9090/librarian/home/books-list?";
+    listingBooksUrl =  baseUrl+"/librarian/home/books-list?";
     fetchBooks(currentPage, pageSize);
 
     document.querySelector('.pagination1').addEventListener('click', function (e) {
@@ -366,7 +367,7 @@ function deleteBook(bookId) {
 
 /*
 *
-* let listingBooksUrl = "http://localhost:9090/librarian/home/searched-books-list"; // Updated URL for search
+* let listingBooksUrl = baseUrl+"/librarian/home/searched-books-list"; // Updated URL for search
 
 document.addEventListener('DOMContentLoaded', function () {
     // Handle the filter selection

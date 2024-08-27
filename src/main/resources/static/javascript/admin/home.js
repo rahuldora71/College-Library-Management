@@ -1,11 +1,12 @@
 
 
+const baseUrl1 = window.location.origin;
 
-let searchUserUrl = "http://localhost:9090/librarian/home/searched-user-list";
+let searchUserUrl =  baseUrl1+"/librarian/home/searched-user-list";
 
-let searchBookUrl = "http://localhost:9090/librarian/home/book-suggestions";
+let searchBookUrl =  baseUrl1+"/librarian/home/book-suggestions";
 
-let serverUrl2 = "http://localhost:9090/librarian/home/";
+let serverUrl2 =  baseUrl1+"/librarian/home/";
 
 let searchedUserId;
 let user;
@@ -144,90 +145,3 @@ function bookSuggestionHide() {
     let searchResult = $("#bookSuggestionItem");
     searchResult.hide();
 }
-/*
- function userDisplay(userJson) {
-     let user = JSON.parse(userJson);
-    let display = $("#displayUser");
-    display.html("").hide()
-    let text="";
-    text = ` <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="${'/images/'+user.studentImage}"  class="img-fluid rounded-start userImage" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title"><strong>Name: &nbsp;</strong>${user.name}</h5>
-                            <p class="card-text"><strong>Roll no.: &nbsp;</strong>${user.roll_no}</p>
-                            <p class="card-text"><strong>Email: &nbsp;</strong>${user.email}</p>
-                            <p class="card-text"><strong>Phone no.: &nbsp;</strong>${user.phone}</p>
-                            <p class="card-text"><strong>Book Borowed: &nbsp;</strong><span class="text-danger">${user.borrowedBooks}</span></p>
-                        </div>
-
-                    </div>
-                </div>`;
-    display.html(text).show()
-
-
-};
-*/
-
-// for suggestion books for issue
-/*
-const searchBook = () => {
-    let query = $("#searchBook").val();
-    let suggestions=$("#bookSuggestionItem");
-
-
-    if (query==="") {
-        suggestions.hide();
-    } else {
-        let url = `${searchBookUrl}?search=${query}`;
-        fetch(url)
-            .then(response =>  response.json())
-            .then(data => {
-                let text="";
-                data.forEach(book =>
-
-                    text +=`<li class="list-group-item d-flex list-group-item-action suggestion-book-item  align-items-bottom" data-user="${book}" onmousedown="suggestionItemClick('${book.bookId}','bookSuggestionItem') ">
-                    <img class="userProfilePic rounded-circle border border-warning" src="${'/images/books'+book.coverPhoto}" alt="">
-                    <div class="d-flex flex-grow-1 flex-column">
-                        <div class="ms-2 me-auto ">
-                            <div class="fw-bold">${book.title}&nbsp;<span class="badge text-bg-primary align-self-end  rounded-pill">${book.edition}</span></div>
-
-                        </div>
-                        <div class="d-flex ms-2  justify-content-between ">
-                            <span><strong>Author:&nbsp;</strong>${book.author}</span>
-                            <span><strong>&nbsp;Publisher:&nbsp;</strong>${book.publisher}</span>
-                            <span class="badge text-bg-primary align-self-end  rounded-pill">&nbsp;${book.category}</span>
-                        </div>
-                    </div>
-                </li>
-                `
-                );
-                suggestions.html(text).show();
-                suggestions.style.display = "block";
-                // Add event listeners to the suggestion items
-
-
-            })
-            .catch(error => console.error('Error:', error));
-    }
-};
-*/
-
-
-const issueBook = () => {
-    // Get the userId and bookId
-    let userId = getSearchedUserId();
-
-    fetch(`/librarian/home/can-borrow-more-books?studentId=${userId}`)
-        .then(response => response.json())
-        .then(canBorrow => {
-            if (!canBorrow) {
-                alert("Student has already borrowed the maximum number of books.");
-            } else {
-                // Proceed with the book issue process
-            }
-        })
-        .catch(error => console.error('Error:', error));
-};

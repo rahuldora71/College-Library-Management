@@ -1,5 +1,8 @@
-let serverUrl1="http://localhost:9090/librarian/";
-let deleteBookUrl = "http://localhost:9090/librarian/home/delete-book/";
+const baseUrl = window.location.origin;
+
+
+let serverUrl1= baseUrl+"/librarian/";
+let deleteBookUrl =  baseUrl+"/librarian/home/delete-book/";
 // main.js
 function setActiveMenuLink(linkId) {
     // Remove 'active' class from all links within the menuList
