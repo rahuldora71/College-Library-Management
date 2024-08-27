@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section class="p-3 add-book-section" >
+    <link rel="stylesheet" th:href="@{/css/admin/add-user.css}">
+
+    <div class="container ">
+
+            <div class="container " th:if="${session.message1}">
+
+                <div th:if="${session.message1.isSuccess()}">
+
+                </div>
+                <!--        card for edit the previously saved book end-->
+
+                <div th:unless="${session.message1.isSuccess()}" class="m-3">
+
+                    <div class="alert  text-center" th:classappend="${session.message1.type}" role="alert">
+                        <span th:text="${session.message1.content}"></span>
+                    </div>
+                </div>
+
+            </div>
+
+
+        <th:block th:text="${@sessionRemover.removeMessageFromSession()}"></th:block>
+
+
+
+        <div class="card opacity shadow m-3 p-3 mb-5 ">
+            <form class="" method="post" th:action="@{/librarian/add-user-db}"  enctype="multipart/form-data" th:object="${user}">
+                <h2 class="add-user-page-heading text-center p-2 m-3">Add New User</h2>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Student Name</label>
+                    <input type="text" name="name" th:value="${user.name}"  class="form-control" id="name"
+                           th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+
+                </div>
+                <div class="mb-3">
+                    <label for="roll_no" class="form-label">Student Roll no.</label>
+                    <input type="text" name="roll_no" th:value="${user.roll_no}"  class="form-control" id="roll_no"
+                           th:classappend="${#fields.hasErrors('roll_no')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('roll_no')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" th:value="${user.email}"  class="form-control" id="email"
+                           th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('email')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="course" class="form-label">Course</label>
+                    <input type="text" name="course" th:value="${user.course}"  class="form-control" id="course"
+                           th:classappend="${#fields.hasErrors('course')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('course')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="phone_no" class="form-label">Phone no.</label>
+                    <input type="number" name="phone" th:value="${user.phone}"  class="form-control" id="phone_no"
+                           th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('phone')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password"   class="form-control" id="password"
+                           th:classappend="${#fields.hasErrors('password')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('password')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" name="address" th:value="${user.address}"  class="form-control" id="address"
+                           th:classappend="${#fields.hasErrors('address')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('address')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">District</label>
+                    <input type="text" name="city" th:value="${user.city}"  class="form-control" id="city"
+                           th:classappend="${#fields.hasErrors('city')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('city')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" name="state" th:value="${user.state}"   class="form-control" id="state"
+                           th:classappend="${#fields.hasErrors('state')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('state')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="zip" class="form-label">Zip Code</label>
+                    <input type="number" name="zip" th:value="${user.zip}"   class="form-control" id="zip"
+                           th:classappend="${#fields.hasErrors('zip')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('zip')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" th:text="${user.description}" name="description" id="description"></textarea>
+                </div>
+                <div class="d-flex flex-column align-items-center p-4 justify-content-center " id="upload-image-div" >
+
+
+                    <div class="book-cover">
+                        <img class="rounded float-left" th:src="@{/images/upload.png}" id="studentImageView" alt="Book Cover">
+                    </div>
+                    <div class="mb-3 book input">
+                        <label for="studentPhoto" class="form-label">Student Photo</label>
+                        <input type="file" name="studentPhoto"  class="form-control" id="studentPhoto" accept="image/*" style="display: none;">
+                    </div>
+                    <button id="deletePhotoBtn" class="btn btn-danger rounded-circle custom-image-delete-btn"><i class="fa-solid fa-x"></i></button>
+                </div>
+
+
+                <div class="mb-3 ">
+                    <input type="checkbox" class="agreement"  name="agreement" id="agreement">
+                    <label class="form-check-label" for="agreement">Check me out</label>
+                </div>
+                <button type="submit" class=" shadow-lg btn btn-primary btn-lg m-3">Save</button>
+
+            </form>
+        </div>
+    </div>
+
+
+    <script th:src="@{/javascript/admin/add-user.js}"></script>
+</section>
+</body>
+</html>

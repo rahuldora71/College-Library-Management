@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="college/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>College Registration</title>
+</head>
+<body>
+<section>
+    <div class="container mt-5">
+        <div class="profile-header">
+            <img th:src="@{'/images/college/'+${college.coverPhoto}}" alt="College Cover Photo" class="cover-photo">
+            <img th:src="@{'/images/college/'+${college.logo}}" alt="College Logo" class="profile-pic">
+            <div class="profile-buttons">
+                <button class="btn btn-primary me-2">Settings</button>
+                <a class="btn btn-secondary" th:href="@{/college/update-college}" >Edit</a>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title mb-4">College Information</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Name:&nbsp;</strong> <span th:text="${college.name}"></span></p>
+                        <p><strong>Email:&nbsp;</strong> <span th:text="${college.email}"></span></p>
+                        <p><strong>College Code:&nbsp;</strong> <span th:text="${college.collegeCode}"></span></p>
+                        <p><strong>Phone:&nbsp;</strong> <span th:text="${college.phone}"></span></p>
+                        <p><strong>Website:&nbsp;</strong> <a th:href="${college.website} "><span th:text="${college.website}"></span></a></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Address:&nbsp;</strong> <span th:text="${college.address}"></span></p>
+                        <p><strong>District:&nbsp;</strong> <span th:text="${college.district}"></span></p>
+                        <p><strong>State:&nbsp;</strong> <span th:text="${college.state}"></span></p>
+                        <p><strong>Zip:&nbsp;</strong> <span th:text="${college.zip}"></span></p>
+
+                    </div>
+                </div>
+
+                <h3 class="mt-4">Additional Information</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Contact Name:&nbsp;</strong><span th:text="${college.contactName}"></span></p>
+                        <p><strong>Contact Title:&nbsp;</strong> <span th:text="${college.contactTitle}"></span></p>
+                        <p><strong>Contact Phone:&nbsp;</strong><span th:text="${college.contactPhone}"></span></p>
+                        <p><strong>Contact Email:&nbsp;</strong> <span th:text="${college.contactEmail}"></span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Description:&nbsp;</strong> <span th:text="${college.description}"></span></p>
+                        <p><strong>Status:&nbsp;</strong> <span th:text="${college.collegeStatus}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+</body>
+</html>

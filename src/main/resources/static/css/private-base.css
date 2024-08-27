@@ -1,0 +1,94 @@
+
+.carousel-image{
+    width: 100%;
+    height: 80vh;
+    object-fit: cover;
+}
+body {
+    background-color: lightblue;
+}
+.reg-form{
+    font-size: 1rem!important;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+}
+@media only screen and (max-width: 550px) {
+    .reg-form{
+        /* display: grid; */
+        grid-template-columns: 1fr;
+    }
+    .reg-form input{
+        /* width: 100%; */
+    }
+}
+
+.reg-form label span {
+    content: "\002A";
+    color: red;
+}
+.nav-profile{
+
+
+    border-radius:50% ;
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: cover;
+}
+
+nav .profile{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+}
+nav li a{
+    margin-right: 1rem;
+    transform: scale(1);
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    /*border : 1px solid black;*/
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow:0 0 5px 5px #ffffff;
+}
+nav li a:hover{
+    transform: scale(1.1);
+    transition-duration: 0.2s;
+    color: white!important;
+    font-weight: 700;
+    transition-timing-function: ease-in-out;
+}
+.navbar-brand{
+    font-weight: 800;
+
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+section{
+    /*background-color: #ffffff;*/
+}
+.profile-header {
+    position: relative;
+    margin-bottom: 20px;
+}
+.profile-header img.cover-photo {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+.profile-pic {
+    position: absolute;
+    bottom: -50px;
+    left: 30px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    object-position: center;
+}
+.profile-buttons {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}

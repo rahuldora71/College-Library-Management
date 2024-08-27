@@ -1,0 +1,135 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css);
+*{
+    margin: 0;
+    padding: 0;
+}
+
+section{
+    position: relative;
+}
+.card1 {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /*max-width: 400px;*/
+    display: flex;
+
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.profile-image {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 0 auto 20px;
+}
+body{
+    background-color: #e2e2e2;
+
+}
+
+.book-image {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.userSuggestionItem{
+    max-height: 16rem;
+
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+    overflow-y: auto;
+    &:hover{
+        cursor: pointer;
+    }
+}
+.userProfilePic{
+    object-fit:cover ;
+    width: 3rem;
+    height: 3rem;
+}
+.issue-date{
+    font-size: .7rem!important;
+}
+.customInfo{
+    display: none;
+    position: absolute;
+}
+.information .icon:hover~ .customInfo{
+
+    display: block;
+}
+.status{
+    position: absolute;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*width: 100px;*/
+    /*height: 100px;*/
+    background-color: rgba(0, 0, 0, 0.72);
+    z-index: 9999999;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*#list-btn-full-size{*/
+/*    display: block!important;*/
+/*}*/
+
+#list-btn-small-size {
+    display: none!important;
+}
+/* Media query for large screens */
+@media only screen and  (max-width: 800px) {
+    .card1 {
+        width: 100%;
+        /*max-width: 400px;*/
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+
+    }
+    #list-btn-small-size {
+        display: block!important;
+    }
+
+
+    #list-btn-full-size{
+        display: none!important;
+    }
+    .card1:first-child{
+        display: block;
+    }
+
+}
+.book-issue-search{
+    position:relative ;
+}
+
+.userSuggestionItem{
+    max-height: 16rem;
+
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+    overflow-y: auto;
+    &:hover{
+        cursor: pointer;
+    }
+}
+@media only screen and  (max-width: 500px) {
+    .book-details{
+        flex-direction: column;
+    }
+}

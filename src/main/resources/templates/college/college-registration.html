@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="college/base-befor-login::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>College Registration</title>
+</head>
+<body>
+<section>
+    <div class="container bg-light rounded shadow mt-5 p-4">
+    <h2>College Registration Form</h2>
+    <br>
+    <!--      message-->
+    <div th:if="${session.message}" class="container p-2">
+
+        <div class="alert  text-center" th:classappend="${session.message.type}" role="alert" >
+            <span th:text="${session.message.content}"></span>
+        </div>
+    </div>
+
+
+    <th:block th:text="${@sessionRemover.removeMessageFromSession()}"></th:block>
+
+
+
+    <form th:action="@{/signup-db}" enctype="multipart/form-data" th:object="${college}" method="post" >
+        <div  class="  reg-form">
+            <div class="mb-3 ">
+                <label for="name" class="form-label">Name<span>&#42;</span></label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="name" id="name"
+                        required
+                        th:value="${college.name}"
+                        th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3 ">
+                <label for="email" class="form-label">Email<span>&#42;</span></label>
+                <input
+                        type="email"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        th:value="${college.email}"
+                        required
+                        th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('email')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3  ">
+                <label for="collegeCode" class="form-label">College Code<span>&#42;</span></label>
+                <input
+                        type="text"
+                        oninput="this.value = this.value.toUpperCase()"
+                        class="form-control"
+                        name="collegeCode"
+                        id="collegeCode"
+                        required
+                        th:value="${college.collegeCode}"
+                        th:classappend="${#fields.hasErrors('collegeCode')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('collegeCode')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3 ">
+                <label for="password" class="form-label">Password<span>&#42;</span></label>
+                <input
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        id="password"
+                        required
+                        th:classappend="${#fields.hasErrors('password')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('password')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="c_logo" class="form-label">Logo<span>&#42;</span></label>
+                <input
+                        type="file"
+                        class="form-control"
+                        name="c_logo"
+                        id="c_logo"
+                        accept="image/*"
+                        required
+                        th:classappend="${#fields.hasErrors('logo')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('logo')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="c_coverPhoto" class="form-label">Cover Photo<span>&#42;</span></label>
+                <input
+                        type="file"
+                        class="form-control"
+                        name="c_coverPhoto"
+                        id="c_coverPhoto"
+                        accept="image/*"
+                        required
+                        th:classappend="${#fields.hasErrors('coverPhoto')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('coverPhoto')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Address<span>&#42;</span></label>
+                <input
+                        th:value="${college.address}"
+                        type="text"
+                        class="form-control"
+                        name="address"
+                        id="address"
+                        required
+                        th:classappend="${#fields.hasErrors('address')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('address')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="city" class="form-label">City<span>&#42;</span></label>
+                <input
+                        th:value="${college.city}"
+                        type="text"
+                        class="form-control"
+                        name="city"
+                        id="city"
+                        required
+                        th:classappend="${#fields.hasErrors('city')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('city')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="district" class="form-label">District<span>&#42;</span></label>
+                <input
+                        th:value="${college.district}"
+                        type="text"
+                        class="form-control"
+                        name="district"
+                        id="district"
+                        required
+                        th:classappend="${#fields.hasErrors('district')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('district')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="zip" class="form-label">Zip<span>&#42;</span></label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="zip"
+                        th:value="${college.zip}"
+                        id="zip"
+                        required
+                        th:classappend="${#fields.hasErrors('zip')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('zip')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="state" class="form-label">State<span>&#42;</span></label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="state"
+                        id="state"
+                        th:value="${college.state}"
+                        required
+                        th:classappend="${#fields.hasErrors('state')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('state')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone<span>&#42;</span></label>
+                <input
+                        type="tel"
+                        class="form-control"
+                        name="phone"
+                        th:value="${college.phone}"
+                        id="phone"
+                        required
+                        th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('phone')}" th:text="${e}"
+                     class="invalid-feedback"></div>            </div>
+            <div class="mb-3">
+                <label for="website" class="form-label">Website</label>
+                <input
+                        type="url"
+                        class="form-control"
+                        name="website"
+                        id="website"
+                        th:value="${college.website}"
+
+                        required
+                        th:classappend="${#fields.hasErrors('website')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('website')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="contactName" class="form-label">Contact Name<span>&#42;</span></label>
+                <input
+                        type="text"
+                        th:value="${college.contactName}"
+
+                        class="form-control"
+                        name="contactName"
+                        id="contactName"
+                        required
+                        th:classappend="${#fields.hasErrors('contactName')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('contactName')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="contactTitle" class="form-label">Contact Title <span>&#42;</span></label>
+                <input
+                        type="text"
+                        th:value="${college.contactTitle}"
+
+                        class="form-control"
+                        name="contactTitle"
+                        id="contactTitle"
+                        required
+                        th:classappend="${#fields.hasErrors('contactTitle')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('contactTitle')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="contactPhone" class="form-label">Contact Phone<span>&#42;</span></label>
+                <input
+                        type="tel"
+                        th:value="${college.contactPhone}"
+                        class="form-control"
+                        name="contactPhone"
+                        id="contactPhone"
+                        required
+                        th:classappend="${#fields.hasErrors('contactPhone')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('contactPhone')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="contactEmail" class="form-label">Contact Email<span>&#42;</span></label>
+                <input
+                        type="email"
+                        th:value="${college.contactEmail}"
+
+                        class="form-control"
+                        name="contactEmail"
+                        id="contactEmail"
+                        required
+                        th:classappend="${#fields.hasErrors('contactEmail')?'is-invalid':''}"
+                >
+                <div th:each="e : ${#fields.errors('contactEmail')}" th:text="${e}"
+                     class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea
+                        class="form-control"
+                        name="description"
+                        id="description"
+                        rows="3"
+                        th:text="${college.description}"
+                        required
+                        th:classappend="${#fields.hasErrors('description')?'is-invalid':''}"
+                ></textarea>
+                <div th:each="e : ${#fields.errors('description')}" th:text="${e}"
+                                 class="invalid-feedback"></div>
+            </div>
+
+        </div>
+        <div class="mb-3 ">
+        <input type="checkbox" class="agreement"  name="agreement" id="agreement" required>
+        <label class="form-check-label" for="agreement">Agree terms and conditions</label>
+    </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+
+</section>
+</body>
+</html>

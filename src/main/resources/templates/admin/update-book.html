@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<section>
+    <div class="container">
+
+        <div class="container " th:if="${session.message}">
+
+            <div th:if="${session.message.isSuccess()}">
+
+            </div>
+            <!--        card for edit the previously saved book end-->
+
+            <div th:unless="${session.message.isSuccess()}" class="m-3">
+
+                <div class="alert  text-center" th:classappend="${session.message.type}" role="alert">
+                    <span th:text="${session.message.content}"></span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <th:block th:text="${@sessionRemover.removeMessageFromSession()}"></th:block>
+        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Book</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure to delete                                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a type="button" id="deleteBtn"  th:data-name="${books.bookId}" th:onclick="deleteEditBook(this.getAttribute('data-name'))"  class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card m-3">
+
+            <div class="card-body">
+                <h1 class="text-center">Update Your Book</h1>
+                <div class="container-fluid mt-1">
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            <form action="#"
+                                  th:object="${books}"
+                                  enctype="multipart/form-data"
+                                  method="post"
+                                  th:action="@{/librarian/update-book-db}"
+                                  class="mt-2"
+                            >
+                                <div class="modal-body">
+                                    <!-- Book Title -->
+                                    <div class="mb-3">
+                                        <label for="update-title" class="form-label">Book Title</label>
+                                        <input type="text"
+                                               th:value="${books.title}"
+                                               class="form-control "
+                                               name="title" id="update-title"
+                                               aria-describedby="emailHelp"
+                                               th:classappend="${#fields.hasErrors('title')?'is-invalid':''}"
+                                        >
+                                        <div th:each="e : ${#fields.errors('title')}" th:text="${e}"
+                                             class="invalid-feedback"></div>
+                                    </div>
+                                    <!-- Edition -->
+                                    <div class="mb-3">
+                                        <label for="update-edition" class="form-label">Edition</label>
+                                        <input type="text" th:value="${books.edition}" class="form-control"
+                                               name="edition" id="update-edition"
+                                               th:classappend="${#fields.hasErrors('edition')?'is-invalid':''}"
+                                        >
+                                        <div th:each="e : ${#fields.errors('edition')}" th:text="${e}"
+                                             class="invalid-feedback"></div>
+                                    </div>
+                                    <!-- Author Name -->
+                                    <div class="mb-3">
+                                        <label for="update-author" class="form-label">Author Name</label>
+                                        <input type="text" th:value="${books.author}" class="form-control" name="author"
+                                               id="update-author"
+                                               aria-describedby="emailHelp"
+                                               th:classappend="${#fields.hasErrors('author')?'is-invalid':''}"
+                                        >
+                                        <div th:each="e : ${#fields.errors('author')}" th:text="${e}"
+                                             class="invalid-feedback"></div>
+                                    </div>
+                                    <!-- Publisher -->
+                                    <div class="mb-3">
+                                        <label for="update-publisher" class="form-label">Publisher</label>
+                                        <input type="text" th:value="${books.publisher}" class="form-control"
+                                               name="publisher"
+                                               id="update-publisher"
+                                               th:classappend="${#fields.hasErrors('publisher')?'is-invalid':''}"
+                                        >
+                                        <div th:each="e : ${#fields.errors('publisher')}" th:text="${e}"
+                                             class="invalid-feedback"></div>
+                                    </div>
+                                    <!-- Category -->
+                                    <div class="mb-3">
+                                        <label for="update-category" class="form-label">Category</label>
+                                        <input type="text" th:value="${books.category}" class="form-control"
+                                               name="category" id="update-category"
+                                               th:classappend="${#fields.hasErrors('category')?'is-invalid':''}"
+                                        >
+                                        <div th:each="e : ${#fields.errors('category')}" th:text="${e}"
+                                             class="invalid-feedback"></div>
+                                    </div>
+                                    <!-- Quantity -->
+                                   <!-- <div class="mb-3">
+                                        <label for="update-quantity" class="form-label">Quantity</label>
+                                        <input type="number" th:value="${books.quantity}" class="form-control"
+                                               id="update-quantity" name="quantity"
+                                               th:classappend="${#fields.hasErrors('quantity')?'is-invalid':''}"
+                                        >
+                                        <div th:each="e : ${#fields.errors('quantity')}" th:text="${e}"
+                                             class="invalid-feedback"></div>
+                                    </div>-->
+                                    <!-- Price -->
+                                    <div class="mb-3">
+                                        <label for="update-price" class="form-label">Book Price</label>
+                                        <input type="number" th:value="${books.price}" class="form-control"
+                                               id="update-price" name="price"
+                                               th:classappend="${#fields.hasErrors('price')?'is-invalid':''}"
+                                        >
+                                        <div th:each="e : ${#fields.errors('price')}" th:text="${e}"
+                                             class="invalid-feedback"></div>
+                                    </div>
+                                    <!-- Description -->
+                                    <div class="mb-3">
+                                        <label for="update-description" class="form-label">Description</label>
+                                        <textarea class="form-control" th:text="${books.description}"
+                                                  id="update-description" name="description"
+                                                  aria-describedby="emailHelp"
+                                                  th:classappend="${#fields.hasErrors('description')?'is-invalid':''}"
+                                        >
+                        </textarea>
+                                        <div th:each="e : ${#fields.errors('description')}" th:text="${e}"
+                                             class="invalid-feedback"></div>
+                                    </div>
+                                    <!-- Cover Photo -->
+                                    <div class="d-flex flex-column align-items-center p-4 justify-content-center"
+                                         id="update-upload-image-div">
+                                        <div class="book-cover">
+                                            <img class="rounded float-left" th:src="@{'/images/'+${books.coverPhoto}}"
+                                                 id="update-coverImageView"
+                                                 alt="Book Cover">
+                                        </div>
+                                        <div class="mb-3 book input">
+                                            <label for="update-cover_photo" class="form-label">Cover Photo</label>
+                                            <input type="file" class="form-control" name="cover_photo"
+                                                   id="update-cover_photo" accept="image/*" style="display: none;">
+                                        </div>
+                                        <button id="update-deletePhotoBtn"
+                                                class="btn btn-danger rounded-circle custom-image-delete-btn"><i
+                                                class="fa-solid fa-x"></i></button>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Delete
+                                </button>
+                                <!-- Modal -->
+
+
+                            </form>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<!--    <link rel="stylesheet" th:href="@{/css/admin/base.css}">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/student/base.css}">
+
+</head>
+<body>
+<section class="p-3 " >
+<!--    <link rel="stylesheet" th:href="@{/css/admin/add-user.css}">-->
+
+    <div class="container ">
+
+        <div class="container " th:if="${session.message2}">
+
+            <div th:if="${session.message2.isSuccess()}">
+
+            </div>
+            <!--        card for edit the previously saved book end-->
+
+            <div th:unless="${session.message2.isSuccess()}" class="m-3">
+
+                <div class="alert  text-center" th:classappend="${session.message2.type}" role="alert">
+                    <span th:text="${session.message2.content}"></span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <th:block th:text="${@sessionRemover.removeMessageFromSession()}"></th:block>
+
+
+
+        <div class="    mb-5 ">
+            <form class="" method="post" th:action="@{'/librarian/edit-user-db/'+${user.studentId}}"  enctype="multipart/form-data" th:object="${user}">
+                <div class="profile-header">
+                    <img style="min-height: 15vh ; min-width: 100%; background-color: #8f8f8f"  alt="College Cover Photo" th:src="@{'/images/college'+${collegeImage}}" class="cover-photo">
+                    <img style="background-color: #092a3b; color: white;" th:src="@{'/images/student/'+${user.studentImage}}"  alt="College Logo" class="profile-pic">
+                </div>
+                <div class="card  m-2 mt-5 p-2">
+
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Student Name</label>
+                    <input type="text" name="name" th:value="${user.name}"  class="form-control" id="name"
+                           th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+
+                </div>
+                <div class="mb-3">
+                    <label for="roll_no" class="form-label">Student Roll no.</label>
+                    <input type="text" name="roll_no" th:value="${user.roll_no}"  class="form-control" id="roll_no"
+                           th:classappend="${#fields.hasErrors('roll_no')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('roll_no')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" th:value="${user.email}"  class="form-control" id="email"
+                           th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('email')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="course" class="form-label">Course</label>
+                    <input type="text" name="course" th:value="${user.course}"  class="form-control" id="course"
+                           th:classappend="${#fields.hasErrors('course')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('course')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="phone_no" class="form-label">Phone no.</label>
+                    <input type="number" name="phone" th:value="${user.phone}"  class="form-control" id="phone_no"
+                           th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('phone')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" name="address" th:value="${user.address}"  class="form-control" id="address"
+                           th:classappend="${#fields.hasErrors('address')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('address')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">District</label>
+                    <input type="text" name="city" th:value="${user.city}"  class="form-control" id="city"
+                           th:classappend="${#fields.hasErrors('city')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('city')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" name="state" th:value="${user.state}"   class="form-control" id="state"
+                           th:classappend="${#fields.hasErrors('state')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('state')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="zip" class="form-label">Zip Code</label>
+                    <input type="number" name="zip" th:value="${user.zip}"   class="form-control" id="zip"
+                           th:classappend="${#fields.hasErrors('zip')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('zip')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" th:text="${user.description}" name="description" id="description"></textarea>
+                </div>
+                <div class="mb-3" id="upload-image-div" >
+
+
+
+                        <label for="studentPhoto" class="form-label">Student Photo</label>
+                        <input type="file" name="studentPhoto"  class="form-control is-invalid" id="studentPhoto" accept="image/*" >
+                    <div class="invalid-feedback">Chose the photo is you want to update </div>
+                </div>
+                    </div>
+
+
+
+
+                <div class="mb-3 ">
+                    <input type="checkbox" class="agreement"  name="agreement" id="agreement">
+                    <label class="form-check-label" for="agreement">Check me out</label>
+                </div>
+                <div class="mb-3" style="display: none" >
+                    <label for="password" class="form-label"><strong>Password :&nbsp;</strong></label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            name="password"
+                            id="password"
+                            readonly
+
+                            value="demo_password"
+                            required
+                    >
+                </div>
+                <div>
+                <button type="submit" class=" shadow-lg btn btn-primary btn-lg m-3">Save</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+<!--
+<script>
+
+
+    function updateDeleteButtonState() {
+        const fileInput = document.getElementById('studentPhoto');
+        const deleteButton = document.getElementById('deletePhotoBtn');
+        if (fileInput.files.length > 0) {
+            deleteButton.disabled = false;
+        } else {
+            deleteButton.disabled = true;
+        }
+    }
+
+    document.getElementById('studentPhoto').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('studentImageView').src = e.target.result;
+                updateDeleteButtonState();
+            }
+            reader.readAsDataURL(file);
+        } else {
+            updateDeleteButtonState();
+        }
+    });
+
+    document.querySelector('.book-cover').addEventListener('click', function() {
+        document.getElementById('studentPhoto').click();
+    });
+
+    document.getElementById('deletePhotoBtn').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default behavior
+        // Reset the image view to the default placeholder
+        document.getElementById('studentImageView').src = /*[[@{/images/upload.png}]]*/ '/images/upload.png';
+        // Clear the file input value
+        document.getElementById('studentPhoto').value = '';
+        updateDeleteButtonState();
+    });
+
+    // Initial state check
+    updateDeleteButtonState();
+
+</script>-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</section>
+
+</body>
+</html>

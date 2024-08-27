@@ -16,63 +16,53 @@
 
 
 <!--home page background elements start-->
-<canvas id="sakura"></canvas>
-<div class="btnbg">
+<canvas id="sakura" style="filter: brightness(0.4);"></canvas>
+
+
+<!--        <nav class="navbar ">-->
+            <nav class="navbar  navbar-expand-lg  navbar-light  shadow">
+                <div class="container ">
+                    <a class="navbar-brand text-light fw-bold fs-1 " th:href="@{/}">LIBRARY MANAGEMENT</a>
+                    <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse  justify-content-end " id="navbarNav">
+                        <ul class="navbar-nav gap-3">
+
+                            <li class="nav-item">
+                                <a class="nav-link  fs-4" th:href="@{/login}">LOG IN</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  fs-4" th:href="@{/home}">HOME</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  fs-4" th:href="@{/signup}">REGISTER COLLEGE</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
     <!--    home page background elements end-->
 
 
-    <div class="parent">
-
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <img src="" alt="">
-                    <h1>College Library</h1>
-                </div>
-                <div class="nav-items">
-
-                    <li>
-                        Contact us
-                    </li>
-                    <li>
-                        About Us
-                    </li>
-                    <li>
-                        pricing
-                    </li>
-
-                </div>
-
-            </div>
-
-        </nav>
 
         <div class="home-page-content">
-            <form action="" method="get">
-                <div class="input-group  ">
-                    <div>
-                        <input type="text" class=" form-control fs-2" placeholder="Enter your college code"
-                               aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    </div>
-                    <div>
-                        <button type="submit" class=" fs-2 input-group-text" id="basic-addon2">Enter</button>
-                    </div>
-                </div>
-            </form>
+
+
+            <h1 class="mainTagLine">COLLEGE LIBRARY MANAGEMENT</h1>
+
+            <h1 class="text-center p-5 subTagLine">Empowering Knowledge, Streamlining Access – Your Gateway to Smarter Library Management</h1>
+
+            <a th:href="@{/login}" class="btn homeMainBtn ">Get Start</a>
 
         </div>
-        <div id="home-page">
-
-
-        </div>
-    </div>
-
-</div>
-
-
 <!-- Home page background animation script start-->
+<section th:replace="home-background-script :: background_script_src">
 
-<script id="secondJs" th:src="@{/javascript/home/home.js}"></script>
+</section>
 
 <!-- Home page background animation script end-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

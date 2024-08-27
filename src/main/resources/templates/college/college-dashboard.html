@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="college/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>College Registration</title>
+</head>
+<body>
+<section>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .dashboard-main{
+            /*position: relative;*/
+            min-height: 50vh;
+        }
+        .dashboard-cover-photo{
+
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            height: 60vh;
+            object-fit: cover;
+            filter: brightness(.5);
+        }
+        .dashboard-child{
+
+            margin-top: 28vh;
+        }
+
+        .college_logo img{
+            width: 18rem;
+            height: 18rem;
+            object-fit: cover;
+            margin: 1rem;
+            border-radius: 50%;
+        }
+
+        .college_details{
+
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 1rem;
+            background-color: #e2e2e2;
+            color: #000000;
+            margin: 1rem;
+
+        }
+
+
+        #librarian_card{
+            height: 300px;
+            overflow: auto;
+        }
+
+
+        @media only screen and (max-width: 48rem) {
+           .college{
+               flex-wrap: wrap;
+               margin: 1rem;
+               border-radius: 1rem;
+               background-color: #e2e2e2;
+               justify-content: center;
+           }
+            .college_details{
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+    </style>
+
+
+    <div class="container dashboard-main p-0 shadow">
+        <img class="  dashboard-cover-photo" th:src="@{'/images/college/'+${college.coverPhoto}}" alt="">
+
+
+
+        <div class="container dashboard-child  p-0 bg-*">
+
+
+            <div class="college d-flex ">
+
+                <div class="college_logo">
+                    <img th:src="@{'/images/college/'+${college.logo}}" alt="">
+                </div>
+                <div class="college_details ">
+
+
+                        <span class="fs-2 text-uppercase" th:text="${college.name}"></span>
+
+                    <span class="fs-5" th:text="${college.address}+', '+${college.city}+', '+${college.state}">
+
+                    </span>
+
+
+                        <span class="fs-4" th:text="${college.phone}"></span>
+                        <a class="fs-4" th:href="${college.email}" th:text="${college.email}"></a>
+
+                    <div>
+
+                        <a th:href="${college.website}" class="btn btn-primary "><i class="fa-solid fa-link"></i> Website</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="container">
+<!--                <canvas id="myChart" style="width:100%;max-width:700px"></canvas>-->
+
+                <div class="row">
+
+
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            Book Status
+                            <h4 class="fs-5"><strong>Total books:&nbsp;</strong><span id="total_books"></span></h4>
+
+                        </div>
+                        <div class="card-body   " style="height: 300px">
+                            <canvas  id="bookStatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- List of Librarians -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Librarians
+                        </div>
+                        <div class="card-body" id="librarian_card">
+                            <table  class="table table-dark table-striped"  >
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Staff ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Ph. no.</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody  >
+                                    <tr th:each="l : ${librarian}">
+
+                                        <td th:text="${l.staffId}">
+                                        </td>
+                                        <td >
+                                            <a class="" th:href="@{/college/profile-librarian/{id}(id=${l.librarianId})}"  th:text="${l.name}"> <span ></span></a>
+
+                                        </td>
+                                        <td th:text="${l.phone}"></td>
+                                        <td th:text="${l.email}"></td>
+                                        <td>
+
+                                            <a class="btn btn-primary btn-sm " th:href="@{/college/edit-librarian/{id}(id=${l.librarianId})}" type="submit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                    <!-- Student Fines -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('bookStatusChart').getContext('2d');
+
+            // Initialize the chart with empty data
+            const bookStatusChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Available', 'Borrowed', 'Lost'],
+                    datasets: [{
+                        label: 'Book Status',
+                        data: [0, 0, 0], // Initial empty data
+                        backgroundColor: ['#4CAF50', '#FF9800', '#F44336'], // Colors for each section
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+
+            // Fetch book status data from the backend
+            fetch('http://localhost:9090/college/count-books')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    // Update chart data with the response
+                    bookStatusChart.data.datasets[0].data = [
+                        data['Available'], // Available books count
+                        data['Issued'],    // Borrowed books count (you may rename it accordingly)
+                        data['Lost']       // Lost books count
+                    ];
+                    document.getElementById("total_books").textContent= data['Available']+data['Issued']+data['Lost']
+
+
+                    // Re-render the chart with the updated data
+                    bookStatusChart.update();
+                })
+                .catch(error => {
+                    console.error('Error fetching book status data:', error);
+                });
+        });
+
+    </script>
+</section>
+</body>
+</html>

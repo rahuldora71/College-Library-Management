@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+    <section>
+        <div class="container bg-light rounded shadow mt-5 p-3">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="modal-title" id="librarianModalLabel">Update Librarian</h2>
+            </div>
+
+            <!-- Message -->
+            <div th:if="${session.message}" class="container p-2">
+                <div class="alert text-center" th:classappend="${session.message.type}" role="alert">
+                    <span th:text="${session.message.content}"></span>
+                </div>
+            </div>
+
+            <th:block th:text="${@sessionRemover.removeMessageFromSession()}"></th:block>
+
+            <form th:action="@{/librarian/update-librarian/{id}(id=${librarian.librarianId})}" enctype="multipart/form-data" th:object="${librarian} " method="post">
+                <div class="mb-1 text-center" th:if="${librarian.profilePhoto==null}">
+                    <img th:src="@{/images/librarian/img.png}" width="100" height="100" id="profile_photo1" class="rounded-circle img-fluid rounded" alt="Profile Photo">
+                </div>
+                <div class="mb-1 text-center" th:unless="librarian.profilePhoto==null">
+                    <img th:src="@{'/images/librarian/'+${librarian.profilePhoto}}" width="100" id="profile_photo" class="rounded-circle img-fluid rounded" alt="Profile Photo">
+                </div>
+                <hr>
+
+                <div class="reg-form">
+                    <div class="mb-3">
+                        <label for="name" class="form-label"><strong>Name :&nbsp;</strong></label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                name="name"
+                                id="name"
+                                th:value="${librarian.name}"
+                                required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label"><strong>Email :&nbsp;</strong></label>
+                        <input
+                                type="email"
+                                class="form-control"
+                                name="email"
+                                id="email"
+                                th:value="${librarian.email}"
+                                required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="staff_id" class="form-label"><strong>Staff ID :&nbsp;</strong></label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                name="staffId"
+                                id="staff_id"
+                                th:value="${librarian.staffId}"
+                                required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label"><strong>Phone :&nbsp;</strong></label>
+                        <input
+                                type="tel"
+                                class="form-control"
+                                name="phone"
+                                id="phone"
+                                th:value="${librarian.phone}"
+                                required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label"><strong>Address :&nbsp;</strong></label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                name="address"
+                                id="address"
+                                th:value="${librarian.address}"
+                                required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="city" class="form-label"><strong>City :&nbsp;</strong></label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                name="city"
+                                id="city"
+                                th:value="${librarian.city}"
+                                required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="district" class="form-label"><strong>District :&nbsp;</strong></label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                name="district"
+                                id="district"
+                                th:value="${librarian.district}"
+                                required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="state" class="form-label"><strong>State :&nbsp;</strong></label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                name="state"
+                                id="state"
+                                th:value="${librarian.state}"
+                                required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="zip" class="form-label"><strong>Zip :&nbsp;</strong></label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                name="zip"
+                                id="zip"
+                                th:value="${librarian.zip}"
+                                required
+                        >
+                    </div>
+
+                    <div class="mb-3" id="upload-image-div" >
+
+
+
+                        <label for="studentPhoto" class="form-label">Student Photo</label>
+                        <input type="file" name="studentPhoto"  class="form-control is-invalid" id="studentPhoto" accept="image/*" >
+                        <div class="invalid-feedback">Chose the photo is you want to update </div>
+                    </div>
+
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Update Librarian</button>
+                    </div>
+                    <div class="mb-3" style="display: none" >
+                        <label for="zip" class="form-label"><strong>Zip :&nbsp;</strong></label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                name="password"
+                                id="password"
+                                readonly
+
+                                value="demo_password"
+                                required
+                        >
+                    </div>
+                </div>
+            </form>
+        </div>
+    <script th:src="@{/javascript/admin/settings.js}"></script>
+    </section>
+
+
+
+</body>
+</html>

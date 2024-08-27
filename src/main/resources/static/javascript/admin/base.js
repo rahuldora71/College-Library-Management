@@ -1,4 +1,5 @@
-
+let serverUrl1="http://localhost:9090/librarian/";
+let deleteBookUrl = "http://localhost:9090/librarian/home/delete-book/";
 // main.js
 function setActiveMenuLink(linkId) {
     // Remove 'active' class from all links within the menuList
@@ -12,6 +13,8 @@ function setActiveMenuLink(linkId) {
     const activeLink = document.getElementById(linkId);
     if (activeLink) {
         activeLink.classList.add('active');
+
+        // activeLink.classList.add('active-custom');
     } else {
         console.error(`No link found with id: ${linkId}`);
     }
@@ -21,6 +24,145 @@ function setActiveMenuLink(linkId) {
 window.setActiveMenuLink = setActiveMenuLink;
 
 
+
+function updateDeleteButtonState() {
+    const fileInput = document.getElementById('update-cover_photo');
+    const deleteButton = document.getElementById('update-deletePhotoBtn');
+    if (fileInput.files.length > 0) {
+        deleteButton.disabled = false;
+    } else {
+        deleteButton.disabled = true;
+    }
+}
+document.getElementById('update-deletePhotoBtn').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default behavior
+    // Reset the image view to the default placeholder
+    document.getElementById('update-coverImageView').src = /*[[@{/images/upload.png}]]*/ '/images/upload.png';
+    // Clear the file input value
+    document.getElementById('update-cover_photo').value = '';
+    updateDeleteButtonState();
+});
+document.getElementById('update-cover_photo').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('update-coverImageView').src = e.target.result;
+            updateDeleteButtonState();
+        }
+        reader.readAsDataURL(file);
+    }else {
+        updateDeleteButtonState();
+    }
+});
+
+document.querySelector('.book-cover').addEventListener('click', function() {
+    document.getElementById('update-cover_photo').click();
+});
+// Initial state check
+updateDeleteButtonState();
+
+
+
+function deleteEditBook(bookId) {
+    console.log( " is trying to delete");
+
+    fetch(deleteBookUrl + bookId, {
+        method: 'GET' // Explicitly state the method, though GET is default
+    })
+        .then(response => {
+            if (response.ok) {
+                // Deletion was successful
+                // Redirect to a new URL after 3 seconds
+                setTimeout(function() {
+                    window.location.href = serverUrl1+"add-book";
+                }, 1000);
+            } else {
+                // Handle the case where deletion was not successful
+                console.log('Failed to delete book');
+            }
+        })
+        .catch(error => {
+            // Handle any network errors
+            console.error('Error deleting the book:', error);
+            alert('Failed to delete book');
+        });
+}
+
+
+
+/*
+
+
+function handleFileChange(event, imageViewId, deleteButtonId) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById(imageViewId).src = e.target.result;
+            updateDeleteButtonState(event.target, deleteButtonId);
+        }
+        reader.readAsDataURL(file);
+    } else {
+        updateDeleteButtonState(event.target, deleteButtonId);
+    }
+}
+
+
+
+function handleImageClick(fileInputId) {
+    document.getElementById(fileInputId).click();
+}
+
+function updateDeleteButtonState(fileInput, deleteButtonId) {
+    const deleteButton = document.getElementById(deleteButtonId);
+    if (fileInput.files.length > 0) {
+        deleteButton.disabled = false;
+    } else {
+        deleteButton.disabled = true;
+    }
+}
+
+
+function handleDeleteButtonClick(event, fileInputId, imageViewId, defaultImagePath) {
+    event.preventDefault(); // Prevent the default behavior
+    // Reset the image view to the default placeholder
+    document.getElementById(imageViewId).src = defaultImagePath;
+    // Clear the file input value
+    document.getElementById(fileInputId).value = '';
+    updateDeleteButtonState(document.getElementById(fileInputId), event.target.id);
+}
+
+// Event listeners for first cover photo
+document.getElementById('cover_photo').addEventListener('change', function(event) {
+    handleFileChange(event, 'coverImageView', 'deletePhotoBtn');
+});
+
+document.querySelector('#upload-image-div .book-cover').addEventListener('click', function() {
+    handleImageClick('cover_photo');
+});
+
+document.getElementById('deletePhotoBtn').addEventListener('click', function(event) {
+    handleDeleteButtonClick(event, 'cover_photo', 'coverImageView', '/images/upload.png');
+});
+
+// Event listeners for second cover photo
+document.getElementById('update-cover_photo').addEventListener('change', function(event) {
+    handleFileChange(event, 'update-coverImageView', 'update-deletePhotoBtn');
+});
+
+document.querySelector('#update-upload-image-div .book-cover').addEventListener('click', function() {
+    handleImageClick('update-cover_photo');
+});
+
+document.getElementById('update-deletePhotoBtn').addEventListener('click', function(event) {
+    handleDeleteButtonClick(event, 'update-cover_photo', 'update-coverImageView', '/images/upload.png');
+});
+
+// Initial state check
+updateDeleteButtonState(document.getElementById('cover_photo'), 'deletePhotoBtn');
+updateDeleteButtonState(document.getElementById('update-cover_photo'), 'update-deletePhotoBtn');
+*/
 
 
 // document.addEventListener('DOMContentLoaded', () => {

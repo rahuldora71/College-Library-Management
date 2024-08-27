@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/home_pages/home :: sub-layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+<section>
+
+
+    <div class="container pb-3">
+
+        <h1>Book List</h1>
+
+        <div class="d-flex flex-wrap justify-content-between">
+            <div class=" d-flex flex-grow-1  m-3 f-1 ">
+
+                <div class="input-group d-flex ">
+<!--                    <div class="d-flex flex-wrap">-->
+
+                    <div onfocusout="suggestionsHide()" class="form-control search-container suggestions" style="min-width: 7rem">
+
+                    <input onkeyup="search()"   type="text" style="min-width: 5rem" id="book-search-input" class="form-control"  placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+                    <div   class="search-result ">
+                        <!--                Search Result -->
+
+                    </div>
+                    </div>
+<!--                    </div>-->
+                    <button onclick="fetchSearchedBooks()"  class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <!--                    filter for book search list-->
+                    <div class=" d-flex flex-wrap filter-class input-group-append ms-2">
+
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filter<i class="ms-2 fa-solid fa-filter"> </i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-filter="Author">Author</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="Edition">Edition</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="Category">Category</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="Publisher">Publisher</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="Description">Description</a></li>
+                        </ul>
+
+                        <div id="filter-display"  class="ps-2 d-flex align-items-center ms-2 border border-warning rounded bg-light" style="display: none!important;" >
+                            <span id="filter-selected"></span>
+                            <a href="#" class="btn btn-light" id="clear-filter"><i class="fa-solid fa-x"></i></a>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex d-flex align-items-center justify-content-end gap-3 m-3">
+                <a th:href="@{/librarian/add-book}" class="btn btn-primary"> Add Book</a>
+                <a class="btn btn-primary"> Import Book</a>
+            </div>
+        </div>
+        <hr>
+
+        <div class="pagination-container">
+            <ul class="pagination1 pagination m-2 justify-content-center"></ul>
+        </div>
+
+
+        <div class="card book-list-card">
+
+
+
+        </div>
+
+        <div class="pagination-container">
+                        <ul class="pagination2 pagination m-2 justify-content-center"></ul>
+                    </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script th:src="@{/javascript/admin/bookList.js}"></script>
+    <script>
+        setHomeMenuLink("book-list-link");
+
+
+
+    </script>
+
+</section>
+
+</body>
+</html>

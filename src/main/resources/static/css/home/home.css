@@ -9,45 +9,31 @@
 body {
     padding:0;
     margin:0;
+    position: relative;
+    z-index: 122222;
     overflow:hidden;
     height: 600px;
 }
 canvas {
+    position: absolute;
+    z-index: 0;
     padding:0;
     margin:0;
 }
-div.btnbg {
-    position:fixed;
-    left:0;
-    top:0;
-}
-#home-page{
-    background-color: #000;
-    opacity: 70%;
-    width: 100vw;
-    position: relative;
-    /*z-index: 333;*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
 
-
-}
-
+/**/
 .home-page-content{
 
     width: 100vw;
     height: 100vh;
     display: flex;
     /*background-color: aqua;*/
-    z-index: 332;
     position: absolute;
-    justify-content: center;
+   margin-top: 25vh;
     align-items: center;
     flex-direction: column;
 }
-
+/**/
 .home-page-content form {
 
     color: #d0d0d0;
@@ -58,6 +44,7 @@ div.btnbg {
     border-radius: 10px;
     text-align: left;
 }
+/**/
 .input-group{
     display: flex;
     flex-wrap: wrap;
@@ -67,7 +54,7 @@ div.btnbg {
     justify-content: center;
     align-items: center;
 }
-
+/**/
 .input-group input{
     background-color: #171717;
     border: none;
@@ -77,6 +64,7 @@ div.btnbg {
     color: #d0d0d0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, serif
 }
+/**/
 .input-group button{
     background-color: #505050;
     border: none;
@@ -90,74 +78,64 @@ div.btnbg {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, serif;
     font-size: 1.2rem;
 }
-.navbar{
-    /*background-color: aqua;*/
-    position: absolute;
-    left: 0;
-    top: 15px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    /*height: 100%;*/
-    padding: 0;
-    width: 100vw;
-    z-index: 999;
 
-}
-
-.nav-logo{
-    text-shadow: 0 0 15px blueviolet;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    font-size: 24px;
-}
-.nav-logo:hover{
-    cursor: pointer;
-}
-
-.nav-container{
-    ;
-    color: white;
-
-    row-gap: 15px;
-    font-family: "Netflix Sans", "Schadow BT", "Segoe UI", serif;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding-left: 20px;
-    padding-right: 20px;
-    flex-wrap: wrap;
-    align-items: center;
-    /*background-color: brown;*/
-    width: max(900px, 80vw);
-}
-
-
-.nav-items{
-    display: flex;
-    gap: 30px;
-    color: white;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-
-    /*background-color: #c20ef6;*/
-}
 
 li {
     text-transform: uppercase;
-    list-style: none;
-    display: flex;
-    text-shadow: 0 0 14px #00eaff;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-
+    font-weight: 700;
+    transform: scale(1);
+    color: black;
+    text-shadow: 0 0 15px white;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
 }
 
-li:hover{
+li a:hover{
     cursor: pointer;
+    background-color: #505050;
+    color: #e2e2e2!important;
+    transform: scale(1.1);
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+nav{
+    background-color: rgba(0, 0, 0, 0.44);
 }
 
+.mainTagLine{
+    color: #880c0c;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, serif;
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 0 0 20px white;
+    text-align: center;
+}
+.subTagLine{
+    color: #880c0c;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 20px white;
+    text-align: center;
 
+}
+.homeMainBtn{
+    background-color: #505050;
+    border: none;
+    box-shadow: 0 0 15px white;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    border-radius: 10px;
+    color: #d0d0d0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, serif;
+    font-size: 1.2rem;
+    &:hover {
+        cursor: pointer;
+        background-color: #880c0c;
+        color: #e2e2e2 !important;
+        transform: scale(1.1);
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
+    }
+}

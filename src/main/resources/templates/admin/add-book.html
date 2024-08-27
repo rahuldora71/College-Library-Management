@@ -6,83 +6,194 @@
 
 </head>
 <body>
-<section>
-    <!--
-        private int id;
-        private String title;
-        private String author;
-        private String publisher;
-        private String description;
-        private String price;
-        private String quantity;
-        private String status;
-        private String category;
-        private String coverPhoto;
-    -->
+<section class=" p-3 add-book-section ">
+    <link rel="stylesheet" th:href="@{/css/admin/add-book.css}">
+
     <div class="container">
+        <section class=" p-3">
+
+            <div class="container " th:if="${session.message}">
+
+                <div th:if="${session.message.isSuccess()}">
+
+                    <div class="m-3">
+
+                        <div class="alert  text-center" th:classappend="${session.message.type}" role="alert">
+                            <span th:text="${session.message.content}"></span>
+                        </div>
+                    </div>
+                    <div class=" m-3  book-card">
+                        <div class="image-div">
+                            <img th:src="@{'/images/books/'+${saved_book.coverPhoto}}" class="book-image " alt="Book Photo">
+                        </div>
+                        <div class="card-body1 p-2">
+                            <div class="title-div ">
+                                <div class="book-title ">
+                                    <!--/*@thymesVar id="title" type=""*/-->
+                                    <h5 class="book-title-span" th:text="${saved_book.title}">
+
+                                    </h5>
+
+                                </div>
+                                <span class="badge   bg-info text-dark" th:text="${saved_book.edition}"></span>
+                            </div>
+                            <div class="publisher-author ">
+                                <div>
+                    <span class="publisher">Publisher : <span class="badge bg-warning text-dark"
+                                                              th:text="${saved_book.publisher}"></span></span>
+                                    <br>
+                                    <span class="auther">Auther : <span class="badge bg-warning text-dark"
+                                                                        th:text="${saved_book.author}"></span></span>
+                                </div>
+                               <!-- <div class="book-copies">
+                                    <h4 class="" th:text="${saved_book.quantity}"></h4>
+                                    <span>Copies</span>
+
+                                </div>-->
+                                <div class="book-price">
+                                    <h4 class="" th:text="${saved_book.price}"><span>&nbsp;Rs</span></h4>
+
+                                    <span>Price</span>
+                                </div>
+
+                                <a th:href="@{'/librarian/update-book/'+${saved_book.bookId}}" class="btn btn-primary">
+                                    Edit </a>
+
+                                <!--                    <a class="btn btn-primary " data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"-->
+                                <!--                       aria-labelledby="staticBackdropLabel" aria-hidden="true" href="#" role="button">Edit</a>-->
+                            </div>
+
+                            <div class="me-2">
+                                <div class="description-container">
+                                    <span class="fw-bold">Description : </span>
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet commodi error labore libero magnam minus provident, quaerat quis repellat suscipit! Aspernatur culpa, expedita hic illum laboriosam magnam maxime molestias, placeat porro rem, repellendus voluptatibus!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--        card for edit the previously saved book end-->
+
+                <div th:unless="${session.message.isSuccess()}" class="m-3">
+
+                    <div class="alert  text-center" th:classappend="${session.message.type}" role="alert">
+                        <span th:text="${session.message.content}"></span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <th:block th:text="${@sessionRemover.removeMessageFromSession()}"></th:block>
+
+        <!--        book information start-->
         <div class="card shadow m-3 p-3 mb-5 ">
-            <form>
+            <form novalidate="novalidate" enctype="multipart/form-data" method="post" th:object="${books}"
+                  th:action="@{/librarian/add-book-db}">
+                <h2 class="text-center add-book-page-heading p-2  m-4">Add Book</h2>
 
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Book Title</label>
-                            <input type="text" class="form-control" id="title" aria-describedby="emailHelp">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Book Title</label>
+                    <input type="text"
+                           th:value="${books.title}"
+                           class="form-control "
+                           name="title" id="title"
+                           aria-describedby="emailHelp"
+                           th:classappend="${#fields.hasErrors('title')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('title')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="edition" class="form-label">Edition</label>
+                    <input type="text" th:value="${books.edition}" class="form-control" name="edition" id="edition"
+                           th:classappend="${#fields.hasErrors('edition')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('edition')}" th:text="${e}"
+                         class="invalid-feedback"></div>
 
-                        </div>
-                        <div class="mb-3">
-                            <label for="edition" class="form-label">Edition</label>
-                            <input type="text" class="form-control" id="edition" >
-
-                        </div>
-                        <div class="mb-3">
-                            <label for="publisher" class="form-label">Publisher</label>
-                            <input type="text" class="form-control" id="publisher" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="author" class="form-label">Author Name</label>
-                            <input type="text" class="form-control" id="author" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Category</label>
-                            <input type="text" class="form-control" id="category" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">quantity</label>
-                            <input type="number" class="form-control" id="quantity" aria-describedby="emailHelp">
-                        </div>
-
-
-
-
-
-
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">Author Name</label>
+                    <input type="text" th:value="${books.author}" class="form-control" name="author" id="author"
+                           aria-describedby="emailHelp"
+                           th:classappend="${#fields.hasErrors('author')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('author')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="publisher" class="form-label">Publisher</label>
+                    <input type="text" th:value="${books.publisher}" class="form-control" name="publisher"
+                           id="publisher"
+                           th:classappend="${#fields.hasErrors('publisher')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('publisher')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <input type="text" th:value="${books.category}" class="form-control" name="category" id="category"
+                           th:classappend="${#fields.hasErrors('category')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('category')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>
+               <!-- <div class="mb-3">
+                    <label for="quantity" class="form-label">quantity</label>
+                    <input type="number" th:value="${books.quantity}" class="form-control" id="quantity" name="quantity"
+                           th:classappend="${#fields.hasErrors('quantity')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('quantity')}" th:text="${e}"
+                         class="invalid-feedback"></div>
+                </div>-->
                 <div class="mb-3">
                     <label for="price" class="form-label">Book Price </label>
-                    <input type="number" class="form-control" id="price" aria-describedby="emailHelp">
+                    <input type="number" th:value="${books.price}" class="form-control" id="price" name="price"
+                           th:classappend="${#fields.hasErrors('price')?'is-invalid':''}"
+                    >
+                    <div th:each="e : ${#fields.errors('price')}" th:text="${e}"
+                         class="invalid-feedback"></div>
                 </div>
-
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" aria-describedby="emailHelp"></textarea>
+                    <textarea class="form-control" th:text="${books.description}" id="description" name="description"
+                              aria-describedby="emailHelp"
+                              th:classappend="${#fields.hasErrors('description')?'is-invalid':''}"
+                    >
+                    </textarea>
+                    <div th:each="e : ${#fields.errors('description')}" th:text="${e}"
+                         class="invalid-feedback"></div>
                 </div>
-                <div class="d-flex flex-column align-items-center p-4 justify-content-center">
+                <div class="d-flex flex-column align-items-center p-4 justify-content-center" id="upload-image-div">
                     <div class="book-cover">
-                        <img class="rounded float-left" th:src="@{/images/upload.png}" id="coverImageView" alt="Book Cover">
+                        <img class="rounded float-left" th:src="@{/images/upload.png}" id="coverImageView"
+                             alt="Book Cover">
                     </div>
                     <div class="mb-3 book input">
-                        <label for="coverPhoto" class="form-label">Cover Photo</label>
-                        <input type="file" class="form-control" id="coverPhoto" accept="image/*" style="display: none;">
+                        <label for="cover_photo" class="form-label">Cover Photo</label>
+                        <input type="file" th:value="@{'/images/'+${books.coverPhoto}}" class="form-control"
+                               name="cover_photo" id="cover_photo" accept="image/*" style="display: none;">
                     </div>
+                    <button id="deletePhotoBtn" class="btn btn-danger rounded-circle custom-image-delete-btn"><i
+                            class="fa-solid fa-x"></i></button>
+
                 </div>
 
 
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <div class="mb-3 ">
+
+                    <input type="checkbox" class="agreement" name="agreement" id="agreement">
+                    <label class="form-check-label" for="agreement">Check me out</label>
                 </div>
+
                 <button type="submit" class=" shadow-lg btn btn-primary btn-lg m-3">Save</button>
 
             </form>
         </div>
+        <!--        book information ends-->
     </div>
     <script th:src="@{/javascript/admin/add-book.js}"></script>
 

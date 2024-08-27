@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/home_pages/home :: sub-layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+
+
+</head>
+<body>
+<section >
+
+    <div class="container ">
+        <div class="profile-header">
+            <img style="min-height: 15vh ; min-width: 100%; background-color: #8f8f8f"  alt="College Cover Photo" th:src="@{'/images/college/'+${mainLibrarian.college.coverPhoto}}" class="cover-photo">
+            <img style="background-color: #092a3b; color: white;" th:src="@{'/images/librarian/'+${mainLibrarian.profilePhoto}}"  alt="College Logo" class="profile-pic">
+        </div>
+
+
+            <div class="reg-form p-3 my-5 row shadow rounded">
+                <div class=" col-md-6 mb-3">
+                    <label for="name" class="form-label"><strong>Name :&nbsp;</strong></label>
+                    <span id="name" th:text="${mainLibrarian.name}"></span>
+                </div>
+
+                <div class=" col-md-6 mb-3">
+                    <label for="email" class="form-label"><strong>Email :&nbsp;</strong></label>
+                    <span id="email" th:text="${mainLibrarian.email}"></span>
+                </div>
+
+                <div class=" col-md-6 mb-3">
+                    <label for="staff_id" class="form-label"><strong>Staff ID :&nbsp;</strong></label>
+                    <span id="staff_id" th:text="${mainLibrarian.staffId}"></span>
+                </div>
+
+                <div class=" col-md-6 mb-3">
+                    <label for="phone" class="form-label"><strong>Phone :&nbsp;</strong></label>
+                    <span id="phone" th:text="${mainLibrarian.phone}"></span>
+                </div>
+
+                <div class=" col-md-6 mb-3">
+                    <label for="address" class="form-label"><strong>Address :&nbsp;</strong></label>
+                    <span id="address" th:text="${mainLibrarian.address}"></span>
+                </div>
+
+                <div class=" col-md-6 mb-3">
+                    <label for="city" class="form-label"><strong>City :&nbsp;</strong></label>
+                    <span id="city" th:text="${mainLibrarian.city}"></span>
+                </div>
+
+                <div class=" col-md-6 mb-3">
+                    <label for="district" class="form-label"><strong>District :&nbsp;</strong></label>
+                    <span id="district" th:text="${mainLibrarian.district}"></span>
+                </div>
+
+                <div class=" col-md-6 mb-3">
+                    <label for="state" class="form-label"><strong>State :&nbsp;</strong></label>
+                    <span id="state" th:text="${mainLibrarian.state}"></span>
+                </div>
+
+                <div class=" col-md-6 mb-3">
+                    <label for="zip" class="form-label"><strong>Zip :&nbsp;</strong></label>
+                    <span id="zip" th:text="${mainLibrarian.zip}"></span>
+                </div>
+
+
+
+            </div>
+        <div class="row mt-3 shadow rounded py-3">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        Book Status
+                        <h4 class="fs-5"><strong>Total books:&nbsp;</strong><span id="total_books"></span></h4>
+
+                    </div>
+                    <div class="card-body   " style="height: 300px">
+                        <canvas  id="bookStatusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 bg-secondary card mb-4" style="min-height: 300px">
+        <div class="mb-3  pt-2 user-issue-search">
+            <div onfocusout="userSuggestionHide()">
+
+                <label for="searchUser" class="form-label">Search User &nbsp; &nbsp;
+                    <span class="information" ><i class="fa-solid bg-danger text-light border border-danger  rounded-5 fa-circle-info icon"></i>
+                    <h5 class="customInfo fs-6 border border-danger rounded-2 bg-danger-subtle ps-2 pe-2">If you can't find student check the student list in dashboard</h5>
+                </span></label>
+                <input type="text"  oninput="searchUser()" class="form-control" id="searchUser" placeholder="Name / Roll no. / Phone no.">
+
+                <ul class="list-group userSuggestionItem" id="userSuggestionItem">
+                </ul>
+            </div>
+        </div>
+        </div>
+
+
+    </div>
+    </div>
+    <script>
+
+        setHomeMenuLink("dashboard-link")
+
+    </script>
+        <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+        </script>
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const ctx = document.getElementById('bookStatusChart').getContext('2d');
+
+                // Initialize the chart with empty data
+                const bookStatusChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Available', 'Borrowed', 'Lost'],
+                        datasets: [{
+                            label: 'Book Status',
+                            data: [0, 0, 0], // Initial empty data
+                            backgroundColor: ['#4CAF50', '#FF9800', '#F44336'], // Colors for each section
+                        }]
+
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                    }
+                });
+
+                // Fetch book status data from the backend
+                fetch('http://localhost:9090/librarian/home/count-books')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        // Update chart data with the response
+                        bookStatusChart.data.datasets[0].data = [
+                            data['Available'], // Available books count
+                            data['Issued'],    // Borrowed books count (you may rename it accordingly)
+                            data['Lost']       // Lost books count
+                        ];
+                        document.getElementById("total_books").textContent= data['Available']+data['Issued']+data['Lost']
+
+                        // Re-render the chart with the updated data
+                        bookStatusChart.update();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching book status data:', error);
+                    });
+            });
+
+        </script>
+</section>
+
+</body>
+</html>

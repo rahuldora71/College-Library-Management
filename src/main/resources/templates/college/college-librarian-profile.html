@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="college/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>View Librarian</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<section>
+
+    <div class="container bg-light rounded shadow mt-5 p-3">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="modal-title" id="librarianModalLabel">Librarian Details</h2>
+
+
+        <a th:href="@{/college/edit-librarian/{id}(id=${librarian.librarianId})}" class="btn btn-warning">Edit</a>
+    </div>
+        <!-- Message -->
+        <div th:if="${session.message}" class="container p-2">
+            <div class="alert text-center" th:classappend="${session.message.type}" role="alert">
+                <span th:text="${session.message.content}"></span>
+            </div>
+        </div>
+
+        <th:block th:text="${@sessionRemover.removeMessageFromSession()}"></th:block>
+    <div class="mb-1" th:if="${librarian.profilePhoto==null}">
+        <img th:src="@{/images/librarian/img.png}"  width="100" height="100" id="profile_photo1" class="rounded-circle img-fluid rounded" alt="Profile Photo">
+    </div>
+    <div class="mb-1" th:unless="librarian.profilePhoto==null">
+        <img th:src="@{'/images/librarian/'+${librarian.profilePhoto}}"  width="100" id="profile_photo" class="rounded-circle img-fluid rounded" alt="Profile Photo">
+    </div>
+    <hr>
+    <div class="reg-form ">
+        <div class="mb-3">
+            <label for="name" class="form-label"><strong>Name :&nbsp;</strong></label>
+            <p id="name" th:text="${librarian.name}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label"><strong>Email :&nbsp;</strong></label>
+            <p id="email" th:text="${librarian.email}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label for="staff_id" class="form-label"><strong>Staff ID :&nbsp;</strong></label>
+            <p id="staff_id" th:text="${librarian.staffId}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label"><strong>Phone :&nbsp;</strong></label>
+            <p id="phone" th:text="${librarian.phone}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label"><strong>Address :&nbsp;</strong></label>
+            <p id="address" th:text="${librarian.address}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label for="city" class="form-label"><strong>City :&nbsp;</strong></label>
+            <p id="city" th:text="${librarian.city}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label for="district" class="form-label"><strong>District :&nbsp;</strong></label>
+            <p id="district" th:text="${librarian.district}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label for="state" class="form-label"><strong>State :&nbsp;</strong></label>
+            <p id="state" th:text="${librarian.state}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label for="zip" class="form-label"><strong>Zip :&nbsp;</strong></label>
+            <p id="zip" th:text="${librarian.zip}"></p>
+        </div>
+
+
+
+    </div>
+
+        <!-- Button trigger Delete modal -->
+        <a class="btn btn-danger me-2 btn-sm" href="" data-bs-toggle="modal" data-bs-target="#deleteModal" ><i class="fa-solid fa-trash-can"></i>&nbsp;Delete</a>
+
+        <!-- Delete Modal -->
+
+        <div class="modal fade " id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete <span th:text="${librarian.name}"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you suer to delete!
+                    </div>
+                    <div class="modal-footer">
+                        <a href=""   >
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        </a>
+                        <a th:href="@{/college/delete-librarian/{id}(id=${librarian.librarianId})}" >
+
+                            <button type="button" class="btn  btn-danger">Delete</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

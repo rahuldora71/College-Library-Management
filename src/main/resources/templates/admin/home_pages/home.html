@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/base::layout(~{::section})" th:fragment="sub-layout(sub_content)">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section  class=" ">
+    <link rel="stylesheet" th:href="@{/css/admin/home.css}">
+
+    <div class="container-fluid  p-0">
+
+
+    <ul class="nav nav-pills  nav-fill" id="home_menu_list">
+
+
+        <li class="nav-item">
+            <a class=" nav-link home-dashboard-nav-link" id="dashboard-link" th:href="@{/librarian/home/dashboard}" >Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link home-dashboard-nav-link" id="book-list-link"  th:href="@{/librarian/home/books}"  href="#">Books List</a>
+        </li>
+
+    </ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script th:src="@{/javascript/admin/home.js}"></script>
+
+        <section th:replace="${sub_content}">
+
+            <h1>This is Rahul Dora</h1>
+        </section>
+
+
+
+</section>
+</body>
+</html>

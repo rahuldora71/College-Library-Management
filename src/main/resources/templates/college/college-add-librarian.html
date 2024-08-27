@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="college/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Librarian Registration</title>
+</head>
+<body>
+<section>
+
+
+
+    <div class="container bg-light  rounded shadow mt-5 p-3">
+        <h2 class="text-center ">Librarian Registration Form</h2>
+        <br>
+        <!-- Message -->
+        <div th:if="${session.message}" class="container p-2">
+            <div class="alert text-center" th:classappend="${session.message.type}" role="alert">
+                <span th:text="${session.message.content}"></span>
+            </div>
+        </div>
+
+        <th:block th:text="${@sessionRemover.removeMessageFromSession()}"></th:block>
+        <form th:action="@{/college/add-librarian-db}" enctype="multipart/form-data" th:object="${librarian}" method="post">
+            <div class="reg-form">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name<span>&#42;</span></label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            name="name"
+                            id="name"
+                            required
+                            th:value="${librarian.name}"
+                            th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+                    >
+                    <div th:each="e : ${#fields.errors('name')}" th:text="${e}" class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email<span>&#42;</span></label>
+                    <input
+                            type="email"
+                            class="form-control"
+                            name="email"
+                            id="email"
+                            th:value="${librarian.email}"
+                            required
+                            th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+                    >
+                    <div th:each="e : ${#fields.errors('email')}" th:text="${e}" class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="staff_id" class="form-label">Staff Id<span>&#42;</span></label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            name="staffId"
+                            id="staff_id"
+                            th:value="${librarian.staffId}"
+                            required
+                            th:classappend="${#fields.hasErrors('staffId') ? 'is-invalid' : ''}"
+                    >
+                    <div th:each="e : ${#fields.errors('staffId')}" th:text="${e}" class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password<span>&#42;</span></label>
+                    <input
+                            type="password"
+                            class="form-control"
+                            name="password"
+                            id="password"
+                            required
+                            th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
+                    >
+                    <div th:each="e : ${#fields.errors('password')}" th:text="${e}" class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone<span>&#42;</span></label>
+                    <input
+                            type="tel"
+                            class="form-control"
+                            name="phone"
+                            th:value="${librarian.phone}"
+                            id="phone"
+                            required
+                            th:classappend="${#fields.hasErrors('phone') ? 'is-invalid' : ''}"
+                    >
+                    <div th:each="e : ${#fields.errors('phone')}" th:text="${e}" class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address<span>&#42;</span></label>
+                    <input
+                            th:value="${librarian.address}"
+                            type="text"
+                            class="form-control"
+                            name="address"
+                            id="address"
+                            required
+                            th:classappend="${#fields.hasErrors('address') ? 'is-invalid' : ''}"
+                    >
+                    <div th:each="e : ${#fields.errors('address')}" th:text="${e}" class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="city" class="form-label">City<span>&#42;</span></label>
+                    <input
+                            th:value="${librarian.city}"
+                            type="text"
+                            class="form-control"
+                            name="city"
+                            id="city"
+                            required
+                            th:classappend="${#fields.hasErrors('city') ? 'is-invalid' : ''}"
+                    >
+                    <div th:each="e : ${#fields.errors('city')}" th:text="${e}" class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="district" class="form-label">District<span>&#42;</span></label>
+                    <input
+                            th:value="${librarian.district}"
+                            type="text"
+                            class="form-control"
+                            name="district"
+                            id="district"
+                            required
+                            th:classappend="${#fields.hasErrors('district') ? 'is-invalid' : ''}"
+                    >
+                    <div th:each="e : ${#fields.errors('district')}" th:text="${e}" class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="state" class="form-label">State<span>&#42;</span></label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            name="state"
+                            id="state"
+                            th:value="${librarian.state}"
+                            required
+                            th:classappend="${#fields.hasErrors('state') ? 'is-invalid' : ''}"
+                    >
+                    <div th:each="e : ${#fields.errors('state')}" th:text="${e}" class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="zip" class="form-label">Zip<span>&#42;</span></label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            name="zip"
+                            th:value="${librarian.zip}"
+                            id="zip"
+                            required
+                            th:classappend="${#fields.hasErrors('zip') ? 'is-invalid' : ''}"
+                    >
+                    <div th:each="e : ${#fields.errors('zip')}" th:text="${e}" class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="profile_Photo" class="form-label">Profile Photo</label>
+                    <input
+                            type="file"
+                            class="form-control"
+                            name="profile_Photo"
+                            id="profile_Photo"
+                            accept="image/*"
+                            >
+                </div>
+
+
+
+            </div>
+
+            <div class="mb-3">
+                <input type="checkbox" class="agreement" name="agreement" id="agreement" required>
+                <label class="form-check-label" for="agreement">Agree terms and conditions</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</section>
+</body>
+</html>
