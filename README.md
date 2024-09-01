@@ -117,8 +117,11 @@ The **College Library Management System** is a comprehensive solution designed t
 Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request.
 ## Authors
 
-- [@octokatherine](https://www.github.com/octokatherine)
+- [@rahuldora71](https://github.com/rahuldora71)
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## WireFrame
+![CLM Wire Frame drawio](https://github.com/user-attachments/assets/11890767-303f-4466-8411-8b1f01c54ccc)
