@@ -26,6 +26,8 @@ import java.util.Map;
 public class BooksServiceImpl implements BooksService {
 
     @Autowired
+    private LibrarianServiceImpl librarianService;
+    @Autowired
     private BooksRepository bookRepository;
     @Autowired
     private LibrarianRepository librarianRepository;
@@ -107,6 +109,7 @@ public class BooksServiceImpl implements BooksService {
         try {
             Books book = bookRepository.findById(id).get();
             System.out.println(book);
+            librarianService.deleteImage(book.getCoverPhoto());
             College college = librarianRepository.getLibrarianByUserName(principal.getName()).getCollege();
             remove = college.getBooks().remove(book);
             bookRepository.deleteById(id);

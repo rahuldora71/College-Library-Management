@@ -25,10 +25,10 @@
 
             <form th:action="@{/librarian/update-librarian/{id}(id=${librarian.librarianId})}" enctype="multipart/form-data" th:object="${librarian} " method="post">
                 <div class="mb-1 text-center" th:if="${librarian.profilePhoto==null}">
-                    <img th:src="@{/images/librarian/img.png}" width="100" height="100" id="profile_photo1" class="rounded-circle img-fluid rounded" alt="Profile Photo">
+                    <img th:src="@{/img.png}" width="100" height="100" id="profile_photo1" class="rounded-circle img-fluid rounded" alt="Profile Photo">
                 </div>
                 <div class="mb-1 text-center" th:unless="librarian.profilePhoto==null">
-                    <img th:src="@{'/images/librarian/'+${librarian.profilePhoto}}" width="100" id="profile_photo" class="rounded-circle img-fluid rounded" alt="Profile Photo">
+                    <img th:src="@{${librarianImageDIR}+${librarian.profilePhoto}}" width="100" id="profile_photo" class="rounded-circle img-fluid rounded" alt="Profile Photo">
                 </div>
                 <hr>
 

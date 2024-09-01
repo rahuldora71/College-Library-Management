@@ -18,7 +18,8 @@
 
         <div>
 
-        <img th:src="@{'/images/student/'+${user.studentImage}}" alt="Profile Image" class="profile-image">
+
+        <img th:src="@{${studentImageDIR}+${user.studentImage}}" alt="Profile Image" class="profile-image">
         </div>
         <div >
 
@@ -84,7 +85,7 @@
                         <ul class="list-group " id="issued books" th:if="${bookIssued}" >
                             <li class="list-group-item d-flex list-group-item-action suggestion-book-item  align-items-bottom" th:each="b : ${bookIssued}">
 
-                                <img class="userProfilePic rounded border border-warning" th:src="@{'/images/books/'+${b.books.coverPhoto}}" alt="">
+                                <img class="userProfilePic rounded border border-warning" th:src="@{${bookImageDIR}+${b.books.coverPhoto}}" alt="">
                                 <div class="d-flex flex-grow-1 flex-column">
                                     <div class="ms-2 me-auto ">
                                         <div>
@@ -257,6 +258,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<script th:src="@{/javascript/Global_variables.js}"></script>
 <script th:src="@{/javascript/student/user-dashboard.js}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -10,6 +10,7 @@ import com.pw.skills.clm.service.interfaces.CollegeUserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,9 +32,20 @@ import java.util.List;
 
 @Service
 public class CollegeServiceImpl implements CollegeUserService {
+    @Value("${files.bookImage}")
+    String bookImageDIR;
+    @Value("${files.collegeImage}")
+    String collegeImageDIR;
+    @Value("${files.librarianImage}")
+    String librarianImageDIR;
+    @Value("${files.studentImage}")
+    String studentImageDIR;
+    @Value("${files.imageSaveDirectory}")
+    public   String IMAGE_SAVE_DIRECTORY;
 
 
-
+    @Autowired
+    LibrarianServiceImpl librarianService;
     @Autowired
     private CollegeRepository collegeRepository;
     @Autowired
@@ -80,9 +93,10 @@ public class CollegeServiceImpl implements CollegeUserService {
             else {
                 // uploading the file and update the name to contact
                 System.out.println(librarian.getName());
-                librarian.setProfilePhoto(librarian.getName()+librarian.getPhone() +file.getOriginalFilename());
-                File saveFile = new ClassPathResource("/static/images/librarian").getFile();
-                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + librarian.getName()+librarian.getPhone() + file.getOriginalFilename());
+                String fileName=librarian.getName()+librarian.getPhone() +file.getOriginalFilename();
+                librarian.setProfilePhoto(fileName);
+
+                Path path = Paths.get(IMAGE_SAVE_DIRECTORY,fileName);
 
                 Files.copy(file.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
 
@@ -165,9 +179,9 @@ public class CollegeServiceImpl implements CollegeUserService {
             else {
                 // uploading the file and update the name to contact
                 System.out.println(college.getName());
-                college.setLogo(college.getName()+college.getPhone() +logoFile.getOriginalFilename());
-                File saveFile = new ClassPathResource("/static/images/college").getFile();
-                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + college.getName()+college.getPhone() + logoFile.getOriginalFilename());
+                String fileName=college.getName()+college.getPhone() +logoFile.getOriginalFilename();
+                college.setLogo(fileName);
+                Path path = Paths.get(IMAGE_SAVE_DIRECTORY,fileName);
 
                 Files.copy(logoFile.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
 
@@ -182,9 +196,9 @@ public class CollegeServiceImpl implements CollegeUserService {
             else {
                 // uploading the file and update the name to contact
                 System.out.println(college.getName());
-                college.setCoverPhoto(college.getName()+college.getPhone() +coverFile.getOriginalFilename());
-                File saveFile2 = new ClassPathResource("/static/images/college").getFile();
-                Path path2 = Paths.get(saveFile2.getAbsolutePath() + File.separator + college.getName()+college.getPhone() + coverFile.getOriginalFilename());
+                String fileName=college.getName()+college.getPhone() +coverFile.getOriginalFilename();
+                college.setCoverPhoto(fileName);
+                Path path2 = Paths.get(IMAGE_SAVE_DIRECTORY,fileName);
 
                 Files.copy(coverFile.getInputStream(),path2, StandardCopyOption.REPLACE_EXISTING);
 
@@ -257,11 +271,12 @@ public class CollegeServiceImpl implements CollegeUserService {
             else {
                 // uploading the file and update the name to contact
                 System.out.println(college.getName());
-                college.setLogo(college.getName()+college.getPhone() +logoFile.getOriginalFilename());
-                File saveFile = new ClassPathResource("/static/images/college").getFile();
-                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + college.getName()+college.getPhone() + logoFile.getOriginalFilename());
+                librarianService.deleteImage(college1.getLogo());
+                String fileName=college.getName()+college.getPhone() +logoFile.getOriginalFilename();
+                college.setLogo(fileName);
+                Path path2 = Paths.get(IMAGE_SAVE_DIRECTORY,fileName);
 
-                Files.copy(logoFile.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(logoFile.getInputStream(),path2, StandardCopyOption.REPLACE_EXISTING);
 
                 System.out.println("Logo uploaded");
             }
@@ -269,15 +284,14 @@ public class CollegeServiceImpl implements CollegeUserService {
                 // If the file is empty
                 System.out.println("File is empty");
                 college.setCoverPhoto(college1.getCoverPhoto());
-
-
             }
             else {
                 // uploading the file and update the name to contact
                 System.out.println(college.getName());
-                college.setCoverPhoto(college.getName()+college.getPhone() +coverFile.getOriginalFilename());
-                File saveFile2 = new ClassPathResource("/static/images/college").getFile();
-                Path path2 = Paths.get(saveFile2.getAbsolutePath() + File.separator + college.getName()+college.getPhone() + coverFile.getOriginalFilename());
+                librarianService.deleteImage(college1.getCoverPhoto());
+                String fileName=college.getName()+college.getPhone() +coverFile.getOriginalFilename();
+                college.setCoverPhoto(fileName);
+                Path path2 = Paths.get(IMAGE_SAVE_DIRECTORY,fileName);
 
                 Files.copy(coverFile.getInputStream(),path2, StandardCopyOption.REPLACE_EXISTING);
 
@@ -425,8 +439,14 @@ public class CollegeServiceImpl implements CollegeUserService {
     public String deleteLibrarianSvc(String id, Model model, HttpSession session, Principal principal) {
 
         session.setAttribute("message", new Message(false, "Librarian deleted successfully", "alert-success"));
+        Librarian librarian = librarianRepository.findById(id).get();
         College college = collegeRepository.findByEmail(principal.getName());
-        college.getLibrarian().remove(librarianRepository.findById(id).get());
+        college.getLibrarian().remove(librarian);
+        try {
+            librarianService.deleteImage(librarian.getProfilePhoto());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         librarianRepository.deleteById(id);
 
         return "redirect:/college/dashboard";

@@ -10,6 +10,7 @@ import com.pw.skills.clm.repositories.LibrarianRepository;
 import com.pw.skills.clm.service.interfaces.LibrarianService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,16 @@ import java.util.Optional;
 
 @Service
 public class LibrarianServiceImpl implements LibrarianService {
-
+    @Value("${files.bookImage}")
+    String bookImageDIR;
+    @Value("${files.collegeImage}")
+    String collegeImageDIR;
+    @Value("${files.librarianImage}")
+    String librarianImageDIR;
+    @Value("${files.studentImage}")
+    String studentImageDIR;
+    @Value("${files.imageSaveDirectory}")
+    public  String IMAGE_SAVE_DIRECTORY;
     @Autowired
     private CollegeRepository collegeRepository;
     @Autowired
@@ -38,9 +48,9 @@ public class LibrarianServiceImpl implements LibrarianService {
 
     public  void saveBookOnServer(Books books, MultipartFile file) throws IOException {
         System.out.println(books.getTitle());
-        books.setCoverPhoto(books.getTitle() +file.getOriginalFilename());
-        File saveFile = new ClassPathResource("/static/images/books").getFile();
-        Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + books.getTitle() + file.getOriginalFilename());
+        String fileName=books.getTitle() +file.getOriginalFilename();
+        books.setCoverPhoto(fileName);
+        Path path = Paths.get(IMAGE_SAVE_DIRECTORY,fileName);
 
         Files.copy(file.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
     }
@@ -114,9 +124,9 @@ public class LibrarianServiceImpl implements LibrarianService {
             else {
                 // uploading the file and update the name to contact
                 System.out.println(librarian.getName());
-                librarian.setProfilePhoto(librarian.getName()+librarian.getPhone() +file.getOriginalFilename());
-                File saveFile = new ClassPathResource("/static/images/librarian").getFile();
-                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + librarian.getName()+librarian.getPhone() + file.getOriginalFilename());
+                String fileName=librarian.getName()+librarian.getPhone() +file.getOriginalFilename();
+                librarian.setProfilePhoto(fileName);
+                Path path = Paths.get(IMAGE_SAVE_DIRECTORY,fileName);
 
                 Files.copy(file.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
 
@@ -150,5 +160,23 @@ public class LibrarianServiceImpl implements LibrarianService {
         return "redirect:/librarian/settings" ;
     }
 
+
+
+    public void provideImagePathPrefix(Model model) {
+        model.addAttribute("bookImageDIR", bookImageDIR);
+        model.addAttribute("collegeImageDIR",collegeImageDIR);
+        model.addAttribute("librarianImageDIR", librarianImageDIR);
+        model.addAttribute("studentImageDIR", studentImageDIR);
+
+    }
+
+    public  void deleteImage(String imageName) throws Exception {
+        if (!imageName.equals("contact_profile_default.png")) {
+            Path path = Paths.get(IMAGE_SAVE_DIRECTORY,imageName);
+            Files.deleteIfExists(path);
+
+        }
+        System.out.println("delete image is Running "+imageName);
+    }
 
 }

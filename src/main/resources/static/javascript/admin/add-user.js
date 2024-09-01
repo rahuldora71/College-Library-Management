@@ -7,30 +7,7 @@ window.onload = function() {
     } else {
         console.error('setActiveMenuLink function is not available');
     }
-};/*
-document.getElementById('studentPhoto').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('studentImageView').src = e.target.result;
-        }
-        reader.readAsDataURL(file);
-    }
-});
-
-document.querySelector('.book-cover').addEventListener('click', function() {
-    document.getElementById('studentPhoto').click();
-});
-
-
-document.getElementById('deletePhotoBtn').addEventListener('click', function() {
-    event.preventDefault();
-    // Reset the image view to the default placeholder
-    document.getElementById('studentImageView').src = /!*'@{/images/upload.png}'*!/ 'images/upload.png';
-    // Clear the file input value
-    document.getElementById('studentPhoto').value = '';
-});*/
+};
 
 
 
@@ -65,7 +42,7 @@ document.querySelector('.book-cover').addEventListener('click', function() {
 document.getElementById('deletePhotoBtn').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent the default behavior
     // Reset the image view to the default placeholder
-    document.getElementById('studentImageView').src = /*[[@{/images/upload.png}]]*/ '/images/upload.png';
+    document.getElementById('studentImageView').src = /*[[@{/images/upload.png}]]*/ '/upload.png';
     // Clear the file input value
     document.getElementById('studentPhoto').value = '';
     updateDeleteButtonState();

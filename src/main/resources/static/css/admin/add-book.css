@@ -1,11 +1,11 @@
 
 .add-book-section{
-    background: url("../../images/book-bg.png");
+    background: url("../../../images/book-bg.png");
 }
 .add-book-page-heading{
     text-shadow: 0 0 20px #2200ff;
     font-size: 3rem;
-    background: url("../../images/book-bg1.png");
+    background: url("../../../images/book-bg1.png");
 
 }
 
@@ -17,120 +17,3 @@
 }
 
 
-/*!* start  for edit book card *!*/
-
-
-/*.book-card {*/
-/*    display: flex;*/
-/*    flex-wrap: wrap;*/
-/*    border-radius: 10px;*/
-
-/*    background-color: rgb(176, 206, 173);*/
-/*}*/
-/*.image-div, .card-body1 {*/
-/*    padding: 10px;*/
-/*}*/
-/*.card-body1 {*/
-/*    width: 100%;*/
-/*    display: flex;*/
-/*    flex: 1;*/
-/*    overflow: hidden;*/
-/*    flex-direction: column;*/
-/*}*/
-
-/*.image-div{*/
-/*    !* flex: .4; *!*/
-/*}*/
-/*.box {*/
-/*    border: 1px solid #000;*/
-/*    margin: 5px;*/
-/*    padding: 20px;*/
-/*}*/
-
-/*.book-title-span{*/
-/*    text-overflow: ellipsis;*/
-/*    !*white-space: nowrap;*!*/
-/*    overflow: hidden;*/
-/*    max-height:4rem;*/
-/*    font-size: 1.6rem;*/
-/*}*/
-/*.book-title{*/
-/*    overflow: hidden;*/
-/*}*/
-/*.title-div{*/
-/*    align-items: flex-start;*/
-/*    display: flex;*/
-/*    column-gap:.4rem;*/
-/*    justify-content: flex-start;*/
-/*}*/
-
-
-
-/*.book-image {*/
-/*    border-radius: .4rem;*/
-/*    height: 7rem;*/
-/*    width: 5rem;*/
-/*    object-fit: contain;*/
-/*}*/
-
-
-
-
-
-/*.publisher-auther {*/
-/*    display: flex;*/
-/*    flex-wrap: wrap;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*    !*max-width: 1000px;*!*/
-/*    gap: 1rem;*/
-/*    padding-right: max(20px,1rem);*/
-
-/*}*/
-/*.book-copies{*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*    font-size: 2rem;*/
-/*    font-weight: 700;*/
-/*    color: blue;*/
-
-
-/*}*/
-/*.book-copies span{*/
-/*    font-size: 1rem;*/
-/*    font-weight: 600;*/
-/*    color: black;*/
-/*    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
-/*}*/
-/*.book-price{*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    flex-direction: column;*/
-/*    font-size: 2rem;*/
-/*    font-weight: 700;*/
-/*    color:green;*/
-/*}*/
-/*.book-price h4 span{*/
-/*    font-size: 1.1rem;*/
-/*    font-weight: 600;*/
-/*    color: red;*/
-/*    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
-
-/*}*/
-/*.book-price span:nth-child(2){*/
-/*    font-size: 1rem;*/
-/*    font-weight: 600;*/
-/*    color: black;*/
-/*    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
-/*}*/
-
-
-/*@media screen and (max-width: 37.5rem) {*/
-/*    .book-card{*/
-/*        flex-direction: column;*/
-/*    }*/
-/*}*/
-/*!* end for edit book card *!*/

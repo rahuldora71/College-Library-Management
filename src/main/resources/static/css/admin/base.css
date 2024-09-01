@@ -278,32 +278,3 @@ form input {
     color: #007bff;
     text-decoration: none;
 }
-
-/* end for edit book card */
-
-
-/*.custom-nav button{*/
-/*    background-color: white;*/
-/*    color: var(--slider-color);*/
-/*}*/
-/*.custom-nav a:hover{*/
-/*    background-color: var(--slider-color);*/
-/*    color: white;*/
-
-/*}*/
-
-/*.nav-link:hover{*/
-/*    transform: scale(1.1);*/
-/*    color: #39da3d;*/
-/*    */
-/*    transition-property: transform;*/
-/*    transition-timing-function: ease-in-out;*/
-/*    transition-duration: 0.3s;*/
-/*}*/
-/*.nav-link{*/
-/*    color: white;*/
-/*    transform: scale(1);*/
-/*    transition-property: transform;*/
-/*    transition-timing-function: ease-in-out;*/
-/*    transition-duration: 0.3s;*/
-/*}*/

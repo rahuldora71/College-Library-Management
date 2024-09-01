@@ -40,6 +40,7 @@ public class LibrarianController {
         System.out.println("Username is : " + username);
         Librarian librarian = this.librarianRepository.getLibrarianByUserName(username);
         model.addAttribute("mainLibrarian",librarian);
+        librarianService.provideImagePathPrefix(model);
 
 
     }

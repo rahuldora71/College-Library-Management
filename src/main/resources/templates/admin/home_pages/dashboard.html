@@ -11,8 +11,8 @@
 
     <div class="container ">
         <div class="profile-header">
-            <img style="min-height: 15vh ; min-width: 100%; background-color: #8f8f8f"  alt="College Cover Photo" th:src="@{'/images/college/'+${mainLibrarian.college.coverPhoto}}" class="cover-photo">
-            <img style="background-color: #092a3b; color: white;" th:src="@{'/images/librarian/'+${mainLibrarian.profilePhoto}}"  alt="College Logo" class="profile-pic">
+            <img style="min-height: 15vh ; min-width: 100%; background-color: #8f8f8f"  alt="College Cover Photo" th:src="@{${collegeImageDIR}+${mainLibrarian.college.coverPhoto}}" class="cover-photo">
+            <img style="background-color: #092a3b; color: white;" th:src="@{${librarianImageDIR}+${mainLibrarian.profilePhoto}}"  alt="College Logo" class="profile-pic">
         </div>
 
 
@@ -97,6 +97,8 @@
 
     </div>
     </div>
+    <script th:src="@{/Global_variables.js}"></script>
+
     <script>
 
         setHomeMenuLink("dashboard-link")

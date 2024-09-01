@@ -52,14 +52,7 @@ public class CollegePublicController {
         return collegeService.addCollege(college, result, logoFile, coverFile, agreement,model, session);
     }
 
-//    @RequestMapping("/add-librarian")
-//    public String addLibrarian(Model model, HttpSession session, Principal principal)  {
-//        model.addAttribute("title", "Add Librarian-LIBRARY MANAGEMENT");
-//
-//
-//        model.addAttribute("librarian", new Librarian());
-//        return "college/college-add-librarian";
-//    }
+
 
 
     @RequestMapping("/login")

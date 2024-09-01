@@ -51,7 +51,7 @@
 
                     <li class="nav-item " >
                         <a class="nav-link profile" th:href="@{/librarian/home}">
-                            <img class="nav-profile" th:src="@{'/images/librarian/'+${mainLibrarian.profilePhoto}}" alt=""><span th:text="${mainLibrarian.name}"></span></a>
+                            <img class="nav-profile" th:src="@{${librarianImageDIR}+${mainLibrarian.profilePhoto}}" alt=""><span th:text="${mainLibrarian.name}"></span></a>
                     </li>
 
                 </ul>
@@ -78,6 +78,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
+<script th:src="@{/javascript/Global_variables.js}"></script>
 
 <!--<script th:src="@{javascript/user/base.js}"></script>-->
 <script th:src="@{/javascript/admin/base.js}"></script>

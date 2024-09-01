@@ -1,12 +1,11 @@
 
 
-const baseUrl1 = window.location.origin;
 
-let searchUserUrl =  baseUrl1+"/librarian/home/searched-user-list";
+let searchUserUrl =  baseUrl+"/librarian/home/searched-user-list";
 
-let searchBookUrl =  baseUrl1+"/librarian/home/book-suggestions";
+let searchBookUrl =  baseUrl+"/librarian/home/book-suggestions";
 
-let serverUrl2 =  baseUrl1+"/librarian/home/";
+let serverUrl2 =  baseUrl+"/librarian/home/";
 
 let searchedUserId;
 let user;
@@ -97,7 +96,7 @@ const searchUser = () => {
 
 <a href="${serverUrl2}user-prof/${user.studentId} " target="_blank" style="text-decoration: none; ">
 <li class="list-group-item d-flex list-group-item-action suggestion-item  align-items-bottom"    >
-                    <img class="userProfilePic rounded-circle border border-warning" src="${'/images/student/' + user.studentImage}" alt="">
+                    <img class="userProfilePic rounded-circle border border-warning" src="${imagePrefix}${ user.studentImage}" alt="">
                     <div class="d-flex flex-grow-1 flex-column">
                         <div class="ms-2 me-auto ">
                             <div class="fw-bold">${user.name}</div>

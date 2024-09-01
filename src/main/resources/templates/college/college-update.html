@@ -10,8 +10,8 @@
 
     <div class="container mt-5">
         <div class="profile-header">
-            <img th:src="@{'/images/college/'+${college.coverPhoto}}" alt="College Cover Photo" class="cover-photo">
-            <img th:src="@{'/images/college/'+${college.logo}}" alt="College Logo" class="profile-pic">
+            <img th:src="@{${collegeImageDIR}+${college.coverPhoto}}" alt="College Cover Photo" class="cover-photo">
+            <img th:src="@{${collegeImageDIR}+${college.logo}}" alt="College Logo" class="profile-pic">
         </div>
 
         <div class="card">

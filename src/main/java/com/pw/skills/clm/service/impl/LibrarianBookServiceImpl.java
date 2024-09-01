@@ -10,6 +10,7 @@ import com.pw.skills.clm.repositories.LibrarianRepository;
 import com.pw.skills.clm.service.interfaces.LibrarianBookService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -21,6 +22,18 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 @Service
 public class LibrarianBookServiceImpl implements LibrarianBookService {
+
+    @Value("${files.bookImage}")
+    String bookImageDIR;
+    @Value("${files.collegeImage}")
+    String collegeImageDIR;
+    @Value("${files.librarianImage}")
+    String librarianImageDIR;
+    @Value("${files.studentImage}")
+    String studentImageDIR;
+    @Value("${files.imageSaveDirectory}")
+    public   String IMAGE_SAVE_DIRECTORY;
+
     @Autowired
     private BooksRepository booksRepository;
 
@@ -150,11 +163,13 @@ public class LibrarianBookServiceImpl implements LibrarianBookService {
                     if (books1.getCoverPhoto().equals("contact_profile_default.png")) {
                         books.setCoverPhoto("contact_profile_default.png");
                     }else {
+                        librarianService.deleteImage(books1.getCoverPhoto());
                         books.setCoverPhoto(books1.getCoverPhoto());
                     }
 
                 } else {
                     // uploading the file and update the name to contact
+                    librarianService.deleteImage(books1.getCoverPhoto());
                     librarianService.saveBookOnServer(books, file);
 
                     System.out.println("File uploaded");
@@ -194,7 +209,7 @@ public class LibrarianBookServiceImpl implements LibrarianBookService {
                 return "admin/update-book";
             }
         }
-        return "admin/update-book";
+        return "redirect:/librarian/home/books";
     }
 
 

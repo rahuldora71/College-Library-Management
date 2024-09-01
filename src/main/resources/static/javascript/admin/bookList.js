@@ -1,5 +1,4 @@
 
-const baseUrl = window.location.origin;
 let listingBooksUrl = "";
 //     getter and setter of the listingBooksUrl
 
@@ -195,7 +194,7 @@ function createBookCard(book) {
 
     cardDiv.innerHTML = `
         <div class="image-div">
-            <img src="${'/images/books/' + book.coverPhoto || '/images/contact_profile_default.png'}" class="book-image" alt="Book Photo">
+            <img src="${imagePrefix}${book.coverPhoto || 'contact_profile_default.png'}" class="book-image" alt="Book Photo">
         </div>
         <div class="card-body1 p-2">
             <div class="title-div">

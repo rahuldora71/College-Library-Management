@@ -6,8 +6,10 @@ import com.pw.skills.clm.helpers.Message;
 import com.pw.skills.clm.models.ProjectStrings;
 import com.pw.skills.clm.repositories.*;
 import com.pw.skills.clm.service.interfaces.LibrarianUserService;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +32,27 @@ import java.util.Optional;
 @Service
 public class LibrarianUserServiceImpl implements LibrarianUserService {
 
+    @Value("${files.bookImage}")
+    String bookImageDIR;
+    @Value("${files.collegeImage}")
+    String collegeImageDIR;
+    @Value("${files.librarianImage}")
+    String librarianImageDIR;
+    @Value("${files.studentImage}")
+    String studentImageDIR;
+    @Value("${files.imageSaveDirectory}")
+    public  String IMAGE_SAVE_DIRECTORY;
+    @PostConstruct
+    public void init() {
+        System.out.println(IMAGE_SAVE_DIRECTORY);
+        File file = new File(IMAGE_SAVE_DIRECTORY);
+        if (!file.exists()) {
+            file.mkdirs();
+            System.out.println("Folder Created");
+        }else {
+            System.out.println("Folder Already Exists");
+        }
+    }
 
     @Autowired
     private UserRepository userRepository;
@@ -99,11 +122,11 @@ public class LibrarianUserServiceImpl implements LibrarianUserService {
             else {
                 // uploading the file and update the name to contact
                 System.out.println(user.getName());
-                user.setStudentImage(user.getName()+user.getPhone() +file.getOriginalFilename());
-                File saveFile = new ClassPathResource("/static/images/student").getFile();
-                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + user.getName()+user.getPhone() + file.getOriginalFilename());
-
+                String fileName=user.getName()+user.getPhone() +file.getOriginalFilename();
+                user.setStudentImage(fileName);
+                Path path = Paths.get(IMAGE_SAVE_DIRECTORY,fileName);
                 Files.copy(file.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
+
 
                 System.out.println("File uploaded");
             }
@@ -309,10 +332,11 @@ public class LibrarianUserServiceImpl implements LibrarianUserService {
             else {
                 // uploading the file and update the name to contact
                 System.out.println(user.getName());
-                user.setStudentImage(user.getName()+user.getPhone() +file.getOriginalFilename());
-                File saveFile = new ClassPathResource("/static/images/student").getFile();
-                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + user.getName()+user.getPhone() + file.getOriginalFilename());
 
+                librarianService.deleteImage(user1.getStudentImage());
+                String fileName=user.getName()+user.getPhone() +file.getOriginalFilename();
+                user.setStudentImage(fileName);
+                Path path = Paths.get(IMAGE_SAVE_DIRECTORY,fileName);
                 Files.copy(file.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
 
                 System.out.println("File uploaded");

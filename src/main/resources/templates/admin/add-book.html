@@ -24,7 +24,7 @@
                     </div>
                     <div class=" m-3  book-card">
                         <div class="image-div">
-                            <img th:src="@{'/images/books/'+${saved_book.coverPhoto}}" class="book-image " alt="Book Photo">
+                            <img th:src="@{${bookImageDIR}+${saved_book.coverPhoto}}" class="book-image " alt="Book Photo">
                         </div>
                         <div class="card-body1 p-2">
                             <div class="title-div ">
@@ -169,12 +169,12 @@
                 </div>
                 <div class="d-flex flex-column align-items-center p-4 justify-content-center" id="upload-image-div">
                     <div class="book-cover">
-                        <img class="rounded float-left" th:src="@{/images/upload.png}" id="coverImageView"
+                        <img class="rounded float-left" th:src="@{/upload.png}" id="coverImageView"
                              alt="Book Cover">
                     </div>
                     <div class="mb-3 book input">
                         <label for="cover_photo" class="form-label">Cover Photo</label>
-                        <input type="file" th:value="@{'/images/'+${books.coverPhoto}}" class="form-control"
+                        <input type="file" th:value="@{${bookImageDIR}+${books.coverPhoto}}" class="form-control"
                                name="cover_photo" id="cover_photo" accept="image/*" style="display: none;">
                     </div>
                     <button id="deletePhotoBtn" class="btn btn-danger rounded-circle custom-image-delete-btn"><i

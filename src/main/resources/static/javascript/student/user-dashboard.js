@@ -1,4 +1,4 @@
-const baseUrl = window.location.origin;
+
 
 let searchBookUrl = baseUrl+"/librarian/home/book-suggestions";
 let searchedBookId;
@@ -29,7 +29,7 @@ const searchBook = () => {
 
                     text +=`<li class="list-group-item  d-flex list-group-item-action suggestion-book-item  align-items-bottom" data-user="${book}" 
 onmousedown="suggestionItemClick('${book.bookId}','bookSuggestionItem'); bookDisplay('${book.coverPhoto}', '${book.title}' ,'${book.edition}' ,'${book.author}' ,'${book.publisher}' ,'${book.description}' )  ">
-                    <img class="userProfilePic rounded-circle border border-warning" src="${'/images/books/'+book.coverPhoto}" alt="">
+                    <img class="userProfilePic rounded-circle border border-warning" src="${imagePrefix}${book.coverPhoto}" alt="">
                     <div class="d-flex flex-column flex-grow-1  ">
                         <div class="ms-2   me-auto ">
                             <div class="  fw-bold">${book.title}&nbsp;<span class="badge text-bg-primary align-self-end  rounded-pill">${book.edition}</span></div>
@@ -60,7 +60,7 @@ function bookDisplay(bookCover,bookTitle,bookEdition,author,publisher,descriptio
     let text="";
     text = ` <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="${'/images/books/'+bookCover}"  class="img-fluid rounded-start userImage" alt="...">
+                        <img src="${imagePrefix}${bookCover}"  class="img-fluid rounded-start userImage" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">

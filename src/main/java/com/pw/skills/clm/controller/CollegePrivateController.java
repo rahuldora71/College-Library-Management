@@ -9,6 +9,7 @@ import com.pw.skills.clm.repositories.CollegeRepository;
 import com.pw.skills.clm.repositories.LibrarianRepository;
 import com.pw.skills.clm.service.impl.BooksServiceImpl;
 import com.pw.skills.clm.service.impl.CollegeServiceImpl;
+import com.pw.skills.clm.service.impl.LibrarianServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,9 @@ public class CollegePrivateController {
     @Autowired
     private BooksServiceImpl booksServiceImpl;
 
+    @Autowired
+    private LibrarianServiceImpl librarianService;
+
     //Method for adding common data to the model
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
@@ -60,6 +64,7 @@ public class CollegePrivateController {
         System.out.println("Username is : " + username);
         College college = this.collegeRepository.findByEmail(username);
         model.addAttribute("college", college);
+        librarianService.provideImagePathPrefix(model);
 
         System.out.println(college);
     }

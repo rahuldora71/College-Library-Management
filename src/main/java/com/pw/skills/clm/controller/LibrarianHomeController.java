@@ -4,7 +4,9 @@ import com.pw.skills.clm.entities.Books;
 import com.pw.skills.clm.entities.Librarian;
 import com.pw.skills.clm.repositories.BooksRepository;
 import com.pw.skills.clm.repositories.LibrarianRepository;
+import com.pw.skills.clm.service.impl.LibrarianServiceImpl;
 import com.pw.skills.clm.service.impl.LibrarianUserServiceImpl;
+import com.pw.skills.clm.service.interfaces.LibrarianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +29,9 @@ public class LibrarianHomeController {
     @Autowired
     private LibrarianUserServiceImpl librarianUserServiceImpl;
 
+    @Autowired
+    private LibrarianServiceImpl librarianService;
+
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
 
@@ -35,6 +40,7 @@ public class LibrarianHomeController {
         System.out.println("Username is : " + username);
         Librarian librarian = this.librarianRepository.getLibrarianByUserName(username);
         model.addAttribute("mainLibrarian",librarian);
+        librarianService.provideImagePathPrefix(model);
 
 
     }

@@ -149,7 +149,7 @@
                                     <div class="d-flex flex-column align-items-center p-4 justify-content-center"
                                          id="update-upload-image-div">
                                         <div class="book-cover">
-                                            <img class="rounded float-left" th:src="@{'/images/'+${books.coverPhoto}}"
+                                            <img class="rounded float-left" th:src="@{${bookImageDIR}+${books.coverPhoto}}"
                                                  id="update-coverImageView"
                                                  alt="Book Cover">
                                         </div>

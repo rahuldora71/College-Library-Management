@@ -75,7 +75,7 @@
 
 
     <div class="container dashboard-main p-0 shadow">
-        <img class="  dashboard-cover-photo" th:src="@{'/images/college/'+${college.coverPhoto}}" alt="">
+        <img class="  dashboard-cover-photo" th:src="@{${collegeImageDIR}+${college.coverPhoto}}" alt="">
 
 
 
@@ -85,7 +85,7 @@
             <div class="college d-flex ">
 
                 <div class="college_logo">
-                    <img th:src="@{'/images/college/'+${college.logo}}" alt="">
+                    <img th:src="@{${collegeImageDIR}+${college.logo}}" alt="">
                 </div>
                 <div class="college_details ">
 

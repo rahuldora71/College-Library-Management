@@ -1,5 +1,7 @@
 package com.pw.skills.clm.models;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class ProjectStrings {
     // for book status
     public static final String BOOK_STATUS_AVAILABLE = "Available";

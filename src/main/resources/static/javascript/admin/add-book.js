@@ -30,7 +30,7 @@ function updateDeleteButtonState() {
 document.getElementById('deletePhotoBtn').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent the default behavior
     // Reset the image view to the default placeholder
-    document.getElementById('coverImageView').src = /*[[@{/images/upload.png}]]*/ '/images/upload.png';
+    document.getElementById('coverImageView').src =  '/upload.png';
     // Clear the file input value
     document.getElementById('cover_photo').value = '';
     updateDeleteButtonState();

@@ -1,5 +1,6 @@
 package com.pw.skills.clm.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,12 +12,13 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+//@ToString
 @Entity
 public class BookIssued {
     @Id
     private String id= UUID.randomUUID().toString();
     @OneToOne
+    @JsonIgnore
     private Books books;
     private String studentId;
     private String issuedDate;
