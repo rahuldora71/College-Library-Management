@@ -69,6 +69,7 @@ public class CollegeSecurityConfig {
 
 
 
+
       });
         http.formLogin(formLogin-> {
             formLogin.loginPage("/login");
