@@ -128,7 +128,7 @@ public class CollegeSecurityConfig {
                     if ("COLLEGE".equals(role)) {
                         response1.sendRedirect("/college/dashboard");
                     } else if ("LIBRARIAN".equals(role)) {
-                        response1.sendRedirect("/librarian/dashboard");
+                        response1.sendRedirect("/librarian/home");
                     }
                 }
             }
