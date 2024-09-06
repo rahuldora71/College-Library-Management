@@ -80,10 +80,12 @@ public class CollegeSecurityConfig {
             formLogin.successHandler((request, response, authentication) -> {
                 // Redirection logic based on role
                 String role = authentication.getAuthorities().iterator().next().getAuthority();
+                if (!response.isCommitted()) {
                 if ("COLLEGE".equals(role)) {
                     response.sendRedirect("/college/dashboard");
                 } else if ("LIBRARIAN".equals(role)) {
                     response.sendRedirect("/librarian/home");
+                }
                 }
             });
 
@@ -122,12 +124,13 @@ public class CollegeSecurityConfig {
                     // Redirect based on role
                     String role = authentication.getAuthorities().iterator().next().getAuthority();
                     System.out.println(role);
+                    if (!response1.isCommitted()) {
                     if ("COLLEGE".equals(role)) {
                         response1.sendRedirect("/college/dashboard");
                     } else if ("LIBRARIAN".equals(role)) {
                         response1.sendRedirect("/librarian/dashboard");
                     }
-
+                }
             }
                 chain.doFilter(request1, response1);
         }}, UsernamePasswordAuthenticationFilter.class);
